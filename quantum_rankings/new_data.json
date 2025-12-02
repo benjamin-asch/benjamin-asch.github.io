@@ -1,0 +1,3540 @@
+{
+  "venues": [
+    {
+      "code": "QIP",
+      "name": "Quantum Information Processing (QIP) conference"
+    },
+    {
+      "code": "TQC",
+      "name": "Theory of Quantum Computation, Communication and Cryptography (TQC)"
+    },
+    {
+      "code": "QCrypt",
+      "name": "Quantum Cryptography (QCrypt)"
+    },
+    {
+      "code": "NPJ_QI",
+      "name": "npj Quantum Information (journal)"
+    },
+    {
+      "code": "PRX_Q",
+      "name": "PRX Quantum (journal)"
+    },
+    {
+      "code": "Quantum",
+      "name": "Quantum (journal)"
+    },
+    {
+      "code": "QIC",
+      "name": "Quantum Information & Computation (journal)"
+    },
+    {
+      "code": "ACM_TQC",
+      "name": "ACM Transactions on Quantum Computing (journal)"
+    },
+    {
+      "code": "FOCS",
+      "name": "IEEE Symposium on Foundations of Computer Science (FOCS)"
+    },
+    {
+      "code": "STOC",
+      "name": "ACM Symposium on Theory of Computing (STOC)"
+    },
+    {
+      "code": "SODA",
+      "name": "ACM-SIAM Symposium on Discrete Algorithms (SODA)"
+    }
+  ],
+  "institutions": {
+    "MIT": {
+      "name": "Massachusetts Institute of Technology",
+      "region": "North America"
+    },
+    "Caltech": {
+      "name": "California Institute of Technology",
+      "region": "North America"
+    },
+    "ETH": {
+      "name": "ETH Z\u00fcrich",
+      "region": "Europe"
+    },
+    "Tokyo": {
+      "name": "University of Tokyo",
+      "region": "Asia"
+    },
+    "Waterloo": {
+      "name": "University of Waterloo",
+      "region": "North America"
+    },
+    "Oxford": {
+      "name": "University of Oxford",
+      "region": "Europe"
+    },
+    "Cambridge": {
+      "name": "University of Cambridge",
+      "region": "Europe"
+    },
+    "Michigan": {
+      "name": "University of Michigan",
+      "region": "North America"
+    },
+    "Sydney": {
+      "name": "University of Sydney",
+      "region": "Oceania"
+    },
+    "Toronto": {
+      "name": "University of Toronto",
+      "region": "North America"
+    },
+    "Stanford": {
+      "name": "Stanford University",
+      "region": "North America"
+    },
+    "CMU": {
+      "name": "Carnegie Mellon University",
+      "region": "North America"
+    },
+    "UCB": {
+      "name": "University of California, Berkeley",
+      "region": "North America"
+    },
+    "Princeton": {
+      "name": "Princeton University",
+      "region": "North America"
+    },
+    "Harvard": {
+      "name": "Harvard University",
+      "region": "North America"
+    },
+    "Chicago": {
+      "name": "University of Chicago",
+      "region": "North America"
+    },
+    "UW": {
+      "name": "University of Washington",
+      "region": "North America"
+    },
+    "UTAustin": {
+      "name": "University of Texas at Austin",
+      "region": "North America"
+    },
+    "UIUC": {
+      "name": "University of Illinois at Urbana-Champaign",
+      "region": "North America"
+    },
+    "UBC": {
+      "name": "University of British Columbia",
+      "region": "North America"
+    },
+    "NUS": {
+      "name": "National University of Singapore",
+      "region": "Asia"
+    },
+    "HUJ": {
+      "name": "Hebrew University of Jerusalem",
+      "region": "Asia"
+    }
+  },
+  "authors": [
+    {
+      "name": "Bob Smith",
+      "institution": "MIT",
+      "publications": [
+        {
+          "year": 2013,
+          "venue": "NPJ_QI",
+          "title": "Qubit research on codes"
+        },
+        {
+          "year": 2008,
+          "venue": "SODA",
+          "title": "Non-quantum algorithmic result"
+        },
+        {
+          "year": 2022,
+          "venue": "TQC",
+          "title": "Quantum Cryptography research on optimization"
+        },
+        {
+          "year": 2006,
+          "venue": "QIP",
+          "title": "Quantum research on codes"
+        },
+        {
+          "year": 2012,
+          "venue": "FOCS",
+          "title": "Non-quantum algorithmic result"
+        },
+        {
+          "year": 2022,
+          "venue": "NPJ_QI",
+          "title": "Quantum Cryptography research on optimization"
+        }
+      ]
+    },
+    {
+      "name": "Dave Wilson",
+      "institution": "MIT",
+      "publications": [
+        {
+          "year": 2013,
+          "venue": "QIP",
+          "title": "Qubit research on optimization"
+        },
+        {
+          "year": 2015,
+          "venue": "PRX_Q",
+          "title": "Qubit research on codes"
+        },
+        {
+          "year": 2015,
+          "venue": "TQC",
+          "title": "Quantum research on optimization"
+        },
+        {
+          "year": 2008,
+          "venue": "Quantum",
+          "title": "Quantum Computing research on algorithms"
+        },
+        {
+          "year": 2006,
+          "venue": "ACM_TQC",
+          "title": "Quantum Cryptography research on networks"
+        },
+        {
+          "year": 2017,
+          "venue": "TQC",
+          "title": "Quantum Cryptography research on algorithms"
+        }
+      ]
+    },
+    {
+      "name": "Judy Miller",
+      "institution": "MIT",
+      "publications": [
+        {
+          "year": 2011,
+          "venue": "TQC",
+          "title": "Quantum research on codes"
+        },
+        {
+          "year": 2014,
+          "venue": "TQC",
+          "title": "Qubit research on networks"
+        },
+        {
+          "year": 2017,
+          "venue": "PRX_Q",
+          "title": "Quantum Information research on algorithms"
+        },
+        {
+          "year": 2010,
+          "venue": "Quantum",
+          "title": "Quantum Computing research on codes"
+        },
+        {
+          "year": 2013,
+          "venue": "SODA",
+          "title": "Non-quantum algorithmic result"
+        },
+        {
+          "year": 2024,
+          "venue": "SODA",
+          "title": "Qubit advances in algorithm design"
+        }
+      ]
+    },
+    {
+      "name": "Carol Wilson",
+      "institution": "MIT",
+      "publications": [
+        {
+          "year": 2013,
+          "venue": "SODA",
+          "title": "Non-quantum algorithmic result"
+        },
+        {
+          "year": 2012,
+          "venue": "SODA",
+          "title": "Quantum advances in algorithm design"
+        },
+        {
+          "year": 2012,
+          "venue": "QIP",
+          "title": "Quantum Computing research on optimization"
+        },
+        {
+          "year": 2013,
+          "venue": "TQC",
+          "title": "Qubit research on algorithms"
+        },
+        {
+          "year": 2011,
+          "venue": "SODA",
+          "title": "Quantum Information advances in algorithm design"
+        }
+      ]
+    },
+    {
+      "name": "Carol Jones",
+      "institution": "MIT",
+      "publications": [
+        {
+          "year": 2012,
+          "venue": "FOCS",
+          "title": "Quantum Cryptography advances in algorithm design"
+        },
+        {
+          "year": 2018,
+          "venue": "STOC",
+          "title": "Qubit advances in algorithm design"
+        },
+        {
+          "year": 2009,
+          "venue": "FOCS",
+          "title": "Quantum advances in algorithm design"
+        },
+        {
+          "year": 2008,
+          "venue": "QCrypt",
+          "title": "Qubit research on optimization"
+        }
+      ]
+    },
+    {
+      "name": "Judy Johnson",
+      "institution": "Caltech",
+      "publications": [
+        {
+          "year": 2017,
+          "venue": "STOC",
+          "title": "Non-quantum algorithmic result"
+        },
+        {
+          "year": 2021,
+          "venue": "PRX_Q",
+          "title": "Quantum Cryptography research on networks"
+        },
+        {
+          "year": 2008,
+          "venue": "SODA",
+          "title": "Non-quantum algorithmic result"
+        },
+        {
+          "year": 2013,
+          "venue": "SODA",
+          "title": "Quantum Computing advances in algorithm design"
+        },
+        {
+          "year": 2018,
+          "venue": "QCrypt",
+          "title": "Quantum Information research on networks"
+        }
+      ]
+    },
+    {
+      "name": "Eve Taylor",
+      "institution": "Caltech",
+      "publications": [
+        {
+          "year": 2021,
+          "venue": "TQC",
+          "title": "Quantum Computing research on codes"
+        },
+        {
+          "year": 2009,
+          "venue": "Quantum",
+          "title": "Qubit research on networks"
+        },
+        {
+          "year": 2024,
+          "venue": "Quantum",
+          "title": "Quantum Information research on networks"
+        },
+        {
+          "year": 2008,
+          "venue": "Quantum",
+          "title": "Quantum Computing research on codes"
+        }
+      ]
+    },
+    {
+      "name": "Alice Brown",
+      "institution": "Caltech",
+      "publications": [
+        {
+          "year": 2007,
+          "venue": "TQC",
+          "title": "Quantum Information research on networks"
+        },
+        {
+          "year": 2022,
+          "venue": "QCrypt",
+          "title": "Qubit research on optimization"
+        },
+        {
+          "year": 2022,
+          "venue": "QCrypt",
+          "title": "Quantum Computing research on optimization"
+        },
+        {
+          "year": 2011,
+          "venue": "FOCS",
+          "title": "Non-quantum algorithmic result"
+        },
+        {
+          "year": 2011,
+          "venue": "PRX_Q",
+          "title": "Quantum Information research on algorithms"
+        },
+        {
+          "year": 2019,
+          "venue": "FOCS",
+          "title": "Qubit advances in algorithm design"
+        }
+      ]
+    },
+    {
+      "name": "Dave Johnson",
+      "institution": "Caltech",
+      "publications": [
+        {
+          "year": 2005,
+          "venue": "STOC",
+          "title": "Quantum Cryptography advances in algorithm design"
+        },
+        {
+          "year": 2012,
+          "venue": "QIP",
+          "title": "Quantum research on networks"
+        },
+        {
+          "year": 2012,
+          "venue": "TQC",
+          "title": "Quantum research on algorithms"
+        },
+        {
+          "year": 2007,
+          "venue": "FOCS",
+          "title": "Quantum Information advances in algorithm design"
+        },
+        {
+          "year": 2011,
+          "venue": "FOCS",
+          "title": "Quantum Cryptography advances in algorithm design"
+        }
+      ]
+    },
+    {
+      "name": "Judy Wilson",
+      "institution": "Caltech",
+      "publications": [
+        {
+          "year": 2020,
+          "venue": "QIC",
+          "title": "Qubit research on networks"
+        },
+        {
+          "year": 2008,
+          "venue": "SODA",
+          "title": "Quantum Information advances in algorithm design"
+        },
+        {
+          "year": 2018,
+          "venue": "ACM_TQC",
+          "title": "Quantum research on networks"
+        },
+        {
+          "year": 2006,
+          "venue": "QIC",
+          "title": "Quantum Computing research on networks"
+        }
+      ]
+    },
+    {
+      "name": "Dave Brown",
+      "institution": "ETH",
+      "publications": [
+        {
+          "year": 2022,
+          "venue": "ACM_TQC",
+          "title": "Qubit research on optimization"
+        },
+        {
+          "year": 2010,
+          "venue": "PRX_Q",
+          "title": "Quantum Information research on codes"
+        },
+        {
+          "year": 2007,
+          "venue": "ACM_TQC",
+          "title": "Quantum Cryptography research on networks"
+        },
+        {
+          "year": 2006,
+          "venue": "SODA",
+          "title": "Non-quantum algorithmic result"
+        }
+      ]
+    },
+    {
+      "name": "Alice Johnson",
+      "institution": "ETH",
+      "publications": [
+        {
+          "year": 2010,
+          "venue": "QIC",
+          "title": "Quantum Information research on optimization"
+        },
+        {
+          "year": 2011,
+          "venue": "QIC",
+          "title": "Quantum research on codes"
+        },
+        {
+          "year": 2017,
+          "venue": "QIP",
+          "title": "Quantum Information research on algorithms"
+        },
+        {
+          "year": 2019,
+          "venue": "PRX_Q",
+          "title": "Quantum Information research on optimization"
+        }
+      ]
+    },
+    {
+      "name": "Carol Brown",
+      "institution": "ETH",
+      "publications": [
+        {
+          "year": 2011,
+          "venue": "QIP",
+          "title": "Quantum Cryptography research on networks"
+        },
+        {
+          "year": 2015,
+          "venue": "QIP",
+          "title": "Quantum research on optimization"
+        },
+        {
+          "year": 2021,
+          "venue": "FOCS",
+          "title": "Quantum Cryptography advances in algorithm design"
+        },
+        {
+          "year": 2007,
+          "venue": "QCrypt",
+          "title": "Quantum research on networks"
+        },
+        {
+          "year": 2012,
+          "venue": "QIC",
+          "title": "Quantum research on codes"
+        }
+      ]
+    },
+    {
+      "name": "Judy Clark",
+      "institution": "ETH",
+      "publications": [
+        {
+          "year": 2024,
+          "venue": "TQC",
+          "title": "Quantum Information research on algorithms"
+        },
+        {
+          "year": 2013,
+          "venue": "NPJ_QI",
+          "title": "Quantum Computing research on codes"
+        },
+        {
+          "year": 2013,
+          "venue": "QIC",
+          "title": "Qubit research on algorithms"
+        },
+        {
+          "year": 2019,
+          "venue": "Quantum",
+          "title": "Quantum research on networks"
+        }
+      ]
+    },
+    {
+      "name": "Heidi Clark",
+      "institution": "ETH",
+      "publications": [
+        {
+          "year": 2008,
+          "venue": "TQC",
+          "title": "Quantum Cryptography research on codes"
+        },
+        {
+          "year": 2021,
+          "venue": "PRX_Q",
+          "title": "Qubit research on algorithms"
+        },
+        {
+          "year": 2007,
+          "venue": "NPJ_QI",
+          "title": "Quantum Computing research on algorithms"
+        },
+        {
+          "year": 2010,
+          "venue": "ACM_TQC",
+          "title": "Quantum Cryptography research on algorithms"
+        },
+        {
+          "year": 2024,
+          "venue": "SODA",
+          "title": "Quantum Cryptography advances in algorithm design"
+        },
+        {
+          "year": 2014,
+          "venue": "SODA",
+          "title": "Qubit advances in algorithm design"
+        }
+      ]
+    },
+    {
+      "name": "Eve Johnson",
+      "institution": "Tokyo",
+      "publications": [
+        {
+          "year": 2022,
+          "venue": "QCrypt",
+          "title": "Quantum Computing research on algorithms"
+        },
+        {
+          "year": 2024,
+          "venue": "NPJ_QI",
+          "title": "Quantum Computing research on codes"
+        },
+        {
+          "year": 2025,
+          "venue": "PRX_Q",
+          "title": "Quantum Cryptography research on optimization"
+        },
+        {
+          "year": 2013,
+          "venue": "QIP",
+          "title": "Quantum research on optimization"
+        }
+      ]
+    },
+    {
+      "name": "Eve Smith",
+      "institution": "Tokyo",
+      "publications": [
+        {
+          "year": 2015,
+          "venue": "QCrypt",
+          "title": "Quantum Computing research on codes"
+        },
+        {
+          "year": 2019,
+          "venue": "FOCS",
+          "title": "Non-quantum algorithmic result"
+        },
+        {
+          "year": 2022,
+          "venue": "QIP",
+          "title": "Quantum research on networks"
+        },
+        {
+          "year": 2009,
+          "venue": "FOCS",
+          "title": "Quantum Computing advances in algorithm design"
+        }
+      ]
+    },
+    {
+      "name": "Judy Taylor",
+      "institution": "Tokyo",
+      "publications": [
+        {
+          "year": 2018,
+          "venue": "QCrypt",
+          "title": "Quantum research on algorithms"
+        },
+        {
+          "year": 2016,
+          "venue": "QIP",
+          "title": "Quantum Computing research on codes"
+        },
+        {
+          "year": 2012,
+          "venue": "SODA",
+          "title": "Quantum Cryptography advances in algorithm design"
+        },
+        {
+          "year": 2018,
+          "venue": "STOC",
+          "title": "Non-quantum algorithmic result"
+        }
+      ]
+    },
+    {
+      "name": "Dave Williams",
+      "institution": "Tokyo",
+      "publications": [
+        {
+          "year": 2018,
+          "venue": "QIP",
+          "title": "Qubit research on algorithms"
+        },
+        {
+          "year": 2018,
+          "venue": "SODA",
+          "title": "Non-quantum algorithmic result"
+        },
+        {
+          "year": 2012,
+          "venue": "PRX_Q",
+          "title": "Qubit research on networks"
+        },
+        {
+          "year": 2017,
+          "venue": "QIP",
+          "title": "Quantum Information research on codes"
+        }
+      ]
+    },
+    {
+      "name": "Dave Wilson",
+      "institution": "Tokyo",
+      "publications": [
+        {
+          "year": 2014,
+          "venue": "NPJ_QI",
+          "title": "Qubit research on networks"
+        },
+        {
+          "year": 2011,
+          "venue": "QIC",
+          "title": "Quantum Computing research on algorithms"
+        },
+        {
+          "year": 2007,
+          "venue": "PRX_Q",
+          "title": "Quantum Computing research on optimization"
+        },
+        {
+          "year": 2022,
+          "venue": "Quantum",
+          "title": "Quantum research on networks"
+        },
+        {
+          "year": 2013,
+          "venue": "QCrypt",
+          "title": "Quantum Cryptography research on algorithms"
+        }
+      ]
+    },
+    {
+      "name": "Alice Johnson",
+      "institution": "Waterloo",
+      "publications": [
+        {
+          "year": 2018,
+          "venue": "Quantum",
+          "title": "Quantum Computing research on optimization"
+        },
+        {
+          "year": 2024,
+          "venue": "FOCS",
+          "title": "Quantum Cryptography advances in algorithm design"
+        },
+        {
+          "year": 2011,
+          "venue": "PRX_Q",
+          "title": "Quantum research on optimization"
+        },
+        {
+          "year": 2005,
+          "venue": "FOCS",
+          "title": "Non-quantum algorithmic result"
+        },
+        {
+          "year": 2022,
+          "venue": "SODA",
+          "title": "Non-quantum algorithmic result"
+        },
+        {
+          "year": 2011,
+          "venue": "Quantum",
+          "title": "Quantum Information research on networks"
+        }
+      ]
+    },
+    {
+      "name": "Frank Clark",
+      "institution": "Waterloo",
+      "publications": [
+        {
+          "year": 2008,
+          "venue": "PRX_Q",
+          "title": "Quantum Cryptography research on algorithms"
+        },
+        {
+          "year": 2018,
+          "venue": "Quantum",
+          "title": "Quantum Information research on algorithms"
+        },
+        {
+          "year": 2022,
+          "venue": "QCrypt",
+          "title": "Qubit research on optimization"
+        },
+        {
+          "year": 2017,
+          "venue": "SODA",
+          "title": "Non-quantum algorithmic result"
+        },
+        {
+          "year": 2010,
+          "venue": "STOC",
+          "title": "Quantum Information advances in algorithm design"
+        }
+      ]
+    },
+    {
+      "name": "Ivan Smith",
+      "institution": "Waterloo",
+      "publications": [
+        {
+          "year": 2014,
+          "venue": "NPJ_QI",
+          "title": "Quantum Information research on algorithms"
+        },
+        {
+          "year": 2019,
+          "venue": "ACM_TQC",
+          "title": "Quantum Information research on codes"
+        },
+        {
+          "year": 2021,
+          "venue": "ACM_TQC",
+          "title": "Qubit research on networks"
+        },
+        {
+          "year": 2014,
+          "venue": "FOCS",
+          "title": "Non-quantum algorithmic result"
+        },
+        {
+          "year": 2024,
+          "venue": "Quantum",
+          "title": "Quantum research on codes"
+        }
+      ]
+    },
+    {
+      "name": "Eve Brown",
+      "institution": "Waterloo",
+      "publications": [
+        {
+          "year": 2009,
+          "venue": "QIP",
+          "title": "Quantum research on codes"
+        },
+        {
+          "year": 2020,
+          "venue": "STOC",
+          "title": "Non-quantum algorithmic result"
+        },
+        {
+          "year": 2007,
+          "venue": "ACM_TQC",
+          "title": "Quantum Information research on codes"
+        },
+        {
+          "year": 2017,
+          "venue": "ACM_TQC",
+          "title": "Quantum Information research on codes"
+        }
+      ]
+    },
+    {
+      "name": "Carol Smith",
+      "institution": "Waterloo",
+      "publications": [
+        {
+          "year": 2018,
+          "venue": "NPJ_QI",
+          "title": "Qubit research on optimization"
+        },
+        {
+          "year": 2006,
+          "venue": "FOCS",
+          "title": "Quantum advances in algorithm design"
+        },
+        {
+          "year": 2019,
+          "venue": "QCrypt",
+          "title": "Quantum Information research on algorithms"
+        },
+        {
+          "year": 2019,
+          "venue": "STOC",
+          "title": "Non-quantum algorithmic result"
+        }
+      ]
+    },
+    {
+      "name": "Ivan Davis",
+      "institution": "Oxford",
+      "publications": [
+        {
+          "year": 2019,
+          "venue": "QCrypt",
+          "title": "Quantum Information research on optimization"
+        },
+        {
+          "year": 2013,
+          "venue": "NPJ_QI",
+          "title": "Quantum Computing research on optimization"
+        },
+        {
+          "year": 2025,
+          "venue": "NPJ_QI",
+          "title": "Quantum Computing research on optimization"
+        },
+        {
+          "year": 2007,
+          "venue": "PRX_Q",
+          "title": "Qubit research on algorithms"
+        },
+        {
+          "year": 2015,
+          "venue": "Quantum",
+          "title": "Quantum Cryptography research on networks"
+        },
+        {
+          "year": 2009,
+          "venue": "QCrypt",
+          "title": "Qubit research on optimization"
+        }
+      ]
+    },
+    {
+      "name": "Carol Brown",
+      "institution": "Oxford",
+      "publications": [
+        {
+          "year": 2018,
+          "venue": "QIC",
+          "title": "Quantum Computing research on optimization"
+        },
+        {
+          "year": 2018,
+          "venue": "QIP",
+          "title": "Qubit research on optimization"
+        },
+        {
+          "year": 2017,
+          "venue": "STOC",
+          "title": "Non-quantum algorithmic result"
+        },
+        {
+          "year": 2005,
+          "venue": "STOC",
+          "title": "Quantum advances in algorithm design"
+        }
+      ]
+    },
+    {
+      "name": "Frank Jones",
+      "institution": "Oxford",
+      "publications": [
+        {
+          "year": 2018,
+          "venue": "FOCS",
+          "title": "Non-quantum algorithmic result"
+        },
+        {
+          "year": 2022,
+          "venue": "STOC",
+          "title": "Non-quantum algorithmic result"
+        },
+        {
+          "year": 2020,
+          "venue": "NPJ_QI",
+          "title": "Quantum Computing research on optimization"
+        },
+        {
+          "year": 2020,
+          "venue": "QIP",
+          "title": "Quantum Information research on algorithms"
+        },
+        {
+          "year": 2017,
+          "venue": "QCrypt",
+          "title": "Quantum Information research on codes"
+        }
+      ]
+    },
+    {
+      "name": "Judy Taylor",
+      "institution": "Oxford",
+      "publications": [
+        {
+          "year": 2017,
+          "venue": "STOC",
+          "title": "Quantum advances in algorithm design"
+        },
+        {
+          "year": 2007,
+          "venue": "SODA",
+          "title": "Quantum Information advances in algorithm design"
+        },
+        {
+          "year": 2010,
+          "venue": "QIP",
+          "title": "Quantum Computing research on optimization"
+        },
+        {
+          "year": 2015,
+          "venue": "NPJ_QI",
+          "title": "Quantum Information research on algorithms"
+        }
+      ]
+    },
+    {
+      "name": "Frank Davis",
+      "institution": "Oxford",
+      "publications": [
+        {
+          "year": 2018,
+          "venue": "PRX_Q",
+          "title": "Quantum research on optimization"
+        },
+        {
+          "year": 2005,
+          "venue": "FOCS",
+          "title": "Quantum Computing advances in algorithm design"
+        },
+        {
+          "year": 2012,
+          "venue": "SODA",
+          "title": "Quantum advances in algorithm design"
+        },
+        {
+          "year": 2005,
+          "venue": "NPJ_QI",
+          "title": "Qubit research on networks"
+        },
+        {
+          "year": 2024,
+          "venue": "QCrypt",
+          "title": "Qubit research on codes"
+        }
+      ]
+    },
+    {
+      "name": "Heidi Johnson",
+      "institution": "Cambridge",
+      "publications": [
+        {
+          "year": 2011,
+          "venue": "ACM_TQC",
+          "title": "Quantum Computing research on algorithms"
+        },
+        {
+          "year": 2010,
+          "venue": "STOC",
+          "title": "Non-quantum algorithmic result"
+        },
+        {
+          "year": 2008,
+          "venue": "QCrypt",
+          "title": "Quantum Computing research on networks"
+        },
+        {
+          "year": 2023,
+          "venue": "QIP",
+          "title": "Quantum Computing research on optimization"
+        },
+        {
+          "year": 2017,
+          "venue": "NPJ_QI",
+          "title": "Quantum research on codes"
+        },
+        {
+          "year": 2008,
+          "venue": "PRX_Q",
+          "title": "Quantum Cryptography research on networks"
+        }
+      ]
+    },
+    {
+      "name": "Judy Smith",
+      "institution": "Cambridge",
+      "publications": [
+        {
+          "year": 2022,
+          "venue": "QIC",
+          "title": "Quantum Computing research on networks"
+        },
+        {
+          "year": 2021,
+          "venue": "SODA",
+          "title": "Quantum Information advances in algorithm design"
+        },
+        {
+          "year": 2020,
+          "venue": "TQC",
+          "title": "Quantum Information research on algorithms"
+        },
+        {
+          "year": 2025,
+          "venue": "ACM_TQC",
+          "title": "Qubit research on optimization"
+        },
+        {
+          "year": 2010,
+          "venue": "FOCS",
+          "title": "Non-quantum algorithmic result"
+        }
+      ]
+    },
+    {
+      "name": "Eve Clark",
+      "institution": "Cambridge",
+      "publications": [
+        {
+          "year": 2020,
+          "venue": "ACM_TQC",
+          "title": "Quantum Information research on algorithms"
+        },
+        {
+          "year": 2015,
+          "venue": "NPJ_QI",
+          "title": "Quantum research on algorithms"
+        },
+        {
+          "year": 2019,
+          "venue": "NPJ_QI",
+          "title": "Quantum Information research on optimization"
+        },
+        {
+          "year": 2015,
+          "venue": "QIP",
+          "title": "Quantum Information research on algorithms"
+        },
+        {
+          "year": 2010,
+          "venue": "ACM_TQC",
+          "title": "Qubit research on algorithms"
+        },
+        {
+          "year": 2013,
+          "venue": "Quantum",
+          "title": "Quantum Computing research on algorithms"
+        }
+      ]
+    },
+    {
+      "name": "Ivan Smith",
+      "institution": "Cambridge",
+      "publications": [
+        {
+          "year": 2011,
+          "venue": "TQC",
+          "title": "Qubit research on optimization"
+        },
+        {
+          "year": 2020,
+          "venue": "FOCS",
+          "title": "Non-quantum algorithmic result"
+        },
+        {
+          "year": 2020,
+          "venue": "SODA",
+          "title": "Non-quantum algorithmic result"
+        },
+        {
+          "year": 2019,
+          "venue": "QIP",
+          "title": "Quantum research on algorithms"
+        },
+        {
+          "year": 2012,
+          "venue": "QIC",
+          "title": "Qubit research on algorithms"
+        },
+        {
+          "year": 2023,
+          "venue": "Quantum",
+          "title": "Quantum Information research on algorithms"
+        }
+      ]
+    },
+    {
+      "name": "Grace Taylor",
+      "institution": "Cambridge",
+      "publications": [
+        {
+          "year": 2016,
+          "venue": "ACM_TQC",
+          "title": "Quantum Computing research on algorithms"
+        },
+        {
+          "year": 2013,
+          "venue": "NPJ_QI",
+          "title": "Quantum research on codes"
+        },
+        {
+          "year": 2015,
+          "venue": "TQC",
+          "title": "Quantum Cryptography research on codes"
+        },
+        {
+          "year": 2011,
+          "venue": "NPJ_QI",
+          "title": "Quantum Information research on algorithms"
+        },
+        {
+          "year": 2023,
+          "venue": "FOCS",
+          "title": "Quantum advances in algorithm design"
+        }
+      ]
+    },
+    {
+      "name": "Dave Jones",
+      "institution": "Michigan",
+      "publications": [
+        {
+          "year": 2016,
+          "venue": "QCrypt",
+          "title": "Quantum Computing research on networks"
+        },
+        {
+          "year": 2022,
+          "venue": "QCrypt",
+          "title": "Quantum Computing research on networks"
+        },
+        {
+          "year": 2006,
+          "venue": "FOCS",
+          "title": "Qubit advances in algorithm design"
+        },
+        {
+          "year": 2025,
+          "venue": "ACM_TQC",
+          "title": "Quantum research on networks"
+        }
+      ]
+    },
+    {
+      "name": "Judy Jones",
+      "institution": "Michigan",
+      "publications": [
+        {
+          "year": 2020,
+          "venue": "ACM_TQC",
+          "title": "Quantum Computing research on codes"
+        },
+        {
+          "year": 2006,
+          "venue": "PRX_Q",
+          "title": "Quantum Information research on networks"
+        },
+        {
+          "year": 2007,
+          "venue": "QIC",
+          "title": "Quantum Information research on networks"
+        },
+        {
+          "year": 2023,
+          "venue": "SODA",
+          "title": "Non-quantum algorithmic result"
+        },
+        {
+          "year": 2009,
+          "venue": "QCrypt",
+          "title": "Quantum Cryptography research on algorithms"
+        }
+      ]
+    },
+    {
+      "name": "Bob Brown",
+      "institution": "Michigan",
+      "publications": [
+        {
+          "year": 2022,
+          "venue": "QIC",
+          "title": "Quantum Cryptography research on codes"
+        },
+        {
+          "year": 2021,
+          "venue": "QIC",
+          "title": "Quantum Information research on optimization"
+        },
+        {
+          "year": 2014,
+          "venue": "STOC",
+          "title": "Non-quantum algorithmic result"
+        },
+        {
+          "year": 2014,
+          "venue": "STOC",
+          "title": "Non-quantum algorithmic result"
+        }
+      ]
+    },
+    {
+      "name": "Judy Johnson",
+      "institution": "Michigan",
+      "publications": [
+        {
+          "year": 2025,
+          "venue": "NPJ_QI",
+          "title": "Quantum Computing research on networks"
+        },
+        {
+          "year": 2010,
+          "venue": "NPJ_QI",
+          "title": "Qubit research on networks"
+        },
+        {
+          "year": 2010,
+          "venue": "QIP",
+          "title": "Quantum Information research on optimization"
+        },
+        {
+          "year": 2024,
+          "venue": "ACM_TQC",
+          "title": "Quantum Computing research on networks"
+        }
+      ]
+    },
+    {
+      "name": "Dave Jones",
+      "institution": "Michigan",
+      "publications": [
+        {
+          "year": 2014,
+          "venue": "ACM_TQC",
+          "title": "Quantum research on codes"
+        },
+        {
+          "year": 2013,
+          "venue": "SODA",
+          "title": "Qubit advances in algorithm design"
+        },
+        {
+          "year": 2018,
+          "venue": "TQC",
+          "title": "Quantum Cryptography research on codes"
+        },
+        {
+          "year": 2025,
+          "venue": "QCrypt",
+          "title": "Quantum Computing research on codes"
+        },
+        {
+          "year": 2007,
+          "venue": "QIP",
+          "title": "Qubit research on algorithms"
+        },
+        {
+          "year": 2024,
+          "venue": "STOC",
+          "title": "Non-quantum algorithmic result"
+        }
+      ]
+    },
+    {
+      "name": "Heidi Johnson",
+      "institution": "Sydney",
+      "publications": [
+        {
+          "year": 2014,
+          "venue": "QIC",
+          "title": "Quantum Computing research on optimization"
+        },
+        {
+          "year": 2019,
+          "venue": "TQC",
+          "title": "Quantum Cryptography research on networks"
+        },
+        {
+          "year": 2018,
+          "venue": "Quantum",
+          "title": "Quantum Cryptography research on algorithms"
+        },
+        {
+          "year": 2005,
+          "venue": "TQC",
+          "title": "Qubit research on networks"
+        },
+        {
+          "year": 2013,
+          "venue": "STOC",
+          "title": "Qubit advances in algorithm design"
+        }
+      ]
+    },
+    {
+      "name": "Heidi Taylor",
+      "institution": "Sydney",
+      "publications": [
+        {
+          "year": 2019,
+          "venue": "PRX_Q",
+          "title": "Qubit research on optimization"
+        },
+        {
+          "year": 2025,
+          "venue": "ACM_TQC",
+          "title": "Quantum research on optimization"
+        },
+        {
+          "year": 2016,
+          "venue": "QIC",
+          "title": "Quantum Computing research on algorithms"
+        },
+        {
+          "year": 2008,
+          "venue": "QCrypt",
+          "title": "Quantum Computing research on optimization"
+        },
+        {
+          "year": 2020,
+          "venue": "PRX_Q",
+          "title": "Quantum Information research on networks"
+        },
+        {
+          "year": 2019,
+          "venue": "TQC",
+          "title": "Quantum Computing research on algorithms"
+        }
+      ]
+    },
+    {
+      "name": "Frank Johnson",
+      "institution": "Sydney",
+      "publications": [
+        {
+          "year": 2021,
+          "venue": "QIP",
+          "title": "Quantum Cryptography research on optimization"
+        },
+        {
+          "year": 2018,
+          "venue": "QIP",
+          "title": "Qubit research on algorithms"
+        },
+        {
+          "year": 2024,
+          "venue": "ACM_TQC",
+          "title": "Quantum Information research on networks"
+        },
+        {
+          "year": 2011,
+          "venue": "PRX_Q",
+          "title": "Quantum Cryptography research on codes"
+        },
+        {
+          "year": 2014,
+          "venue": "ACM_TQC",
+          "title": "Quantum Information research on networks"
+        }
+      ]
+    },
+    {
+      "name": "Alice Clark",
+      "institution": "Sydney",
+      "publications": [
+        {
+          "year": 2010,
+          "venue": "PRX_Q",
+          "title": "Quantum Cryptography research on networks"
+        },
+        {
+          "year": 2022,
+          "venue": "QIC",
+          "title": "Quantum research on codes"
+        },
+        {
+          "year": 2008,
+          "venue": "ACM_TQC",
+          "title": "Quantum research on codes"
+        },
+        {
+          "year": 2020,
+          "venue": "PRX_Q",
+          "title": "Quantum Cryptography research on algorithms"
+        }
+      ]
+    },
+    {
+      "name": "Grace Wilson",
+      "institution": "Sydney",
+      "publications": [
+        {
+          "year": 2012,
+          "venue": "ACM_TQC",
+          "title": "Quantum Cryptography research on codes"
+        },
+        {
+          "year": 2017,
+          "venue": "NPJ_QI",
+          "title": "Quantum Cryptography research on codes"
+        },
+        {
+          "year": 2007,
+          "venue": "PRX_Q",
+          "title": "Quantum Information research on algorithms"
+        },
+        {
+          "year": 2021,
+          "venue": "PRX_Q",
+          "title": "Quantum research on algorithms"
+        },
+        {
+          "year": 2014,
+          "venue": "STOC",
+          "title": "Quantum Information advances in algorithm design"
+        }
+      ]
+    },
+    {
+      "name": "Carol Wilson",
+      "institution": "Toronto",
+      "publications": [
+        {
+          "year": 2020,
+          "venue": "Quantum",
+          "title": "Quantum Computing research on optimization"
+        },
+        {
+          "year": 2019,
+          "venue": "Quantum",
+          "title": "Qubit research on codes"
+        },
+        {
+          "year": 2023,
+          "venue": "QIC",
+          "title": "Qubit research on optimization"
+        },
+        {
+          "year": 2006,
+          "venue": "Quantum",
+          "title": "Quantum Information research on optimization"
+        },
+        {
+          "year": 2017,
+          "venue": "SODA",
+          "title": "Non-quantum algorithmic result"
+        },
+        {
+          "year": 2025,
+          "venue": "QCrypt",
+          "title": "Quantum Information research on networks"
+        }
+      ]
+    },
+    {
+      "name": "Carol Taylor",
+      "institution": "Toronto",
+      "publications": [
+        {
+          "year": 2015,
+          "venue": "TQC",
+          "title": "Quantum Information research on networks"
+        },
+        {
+          "year": 2021,
+          "venue": "ACM_TQC",
+          "title": "Quantum research on codes"
+        },
+        {
+          "year": 2018,
+          "venue": "SODA",
+          "title": "Non-quantum algorithmic result"
+        },
+        {
+          "year": 2007,
+          "venue": "ACM_TQC",
+          "title": "Quantum Computing research on algorithms"
+        },
+        {
+          "year": 2024,
+          "venue": "QIC",
+          "title": "Quantum research on algorithms"
+        },
+        {
+          "year": 2022,
+          "venue": "QIC",
+          "title": "Quantum Computing research on optimization"
+        }
+      ]
+    },
+    {
+      "name": "Ivan Smith",
+      "institution": "Toronto",
+      "publications": [
+        {
+          "year": 2007,
+          "venue": "NPJ_QI",
+          "title": "Quantum Computing research on codes"
+        },
+        {
+          "year": 2007,
+          "venue": "QIC",
+          "title": "Quantum research on networks"
+        },
+        {
+          "year": 2019,
+          "venue": "QCrypt",
+          "title": "Quantum Computing research on networks"
+        },
+        {
+          "year": 2006,
+          "venue": "Quantum",
+          "title": "Quantum research on algorithms"
+        },
+        {
+          "year": 2016,
+          "venue": "Quantum",
+          "title": "Quantum Information research on codes"
+        },
+        {
+          "year": 2012,
+          "venue": "FOCS",
+          "title": "Qubit advances in algorithm design"
+        }
+      ]
+    },
+    {
+      "name": "Carol Williams",
+      "institution": "Toronto",
+      "publications": [
+        {
+          "year": 2024,
+          "venue": "QIC",
+          "title": "Quantum Cryptography research on codes"
+        },
+        {
+          "year": 2020,
+          "venue": "STOC",
+          "title": "Quantum Information advances in algorithm design"
+        },
+        {
+          "year": 2025,
+          "venue": "PRX_Q",
+          "title": "Quantum Information research on algorithms"
+        },
+        {
+          "year": 2005,
+          "venue": "ACM_TQC",
+          "title": "Quantum Computing research on codes"
+        }
+      ]
+    },
+    {
+      "name": "Bob Wilson",
+      "institution": "Toronto",
+      "publications": [
+        {
+          "year": 2023,
+          "venue": "PRX_Q",
+          "title": "Quantum Information research on algorithms"
+        },
+        {
+          "year": 2019,
+          "venue": "PRX_Q",
+          "title": "Qubit research on optimization"
+        },
+        {
+          "year": 2020,
+          "venue": "TQC",
+          "title": "Qubit research on optimization"
+        },
+        {
+          "year": 2023,
+          "venue": "Quantum",
+          "title": "Quantum Cryptography research on algorithms"
+        },
+        {
+          "year": 2014,
+          "venue": "QIP",
+          "title": "Quantum Information research on algorithms"
+        }
+      ]
+    },
+    {
+      "name": "Alice Clark",
+      "institution": "Stanford",
+      "publications": [
+        {
+          "year": 2006,
+          "venue": "STOC",
+          "title": "Non-quantum algorithmic result"
+        },
+        {
+          "year": 2014,
+          "venue": "NPJ_QI",
+          "title": "Quantum Cryptography research on algorithms"
+        },
+        {
+          "year": 2012,
+          "venue": "SODA",
+          "title": "Quantum Computing advances in algorithm design"
+        },
+        {
+          "year": 2009,
+          "venue": "SODA",
+          "title": "Quantum advances in algorithm design"
+        },
+        {
+          "year": 2014,
+          "venue": "ACM_TQC",
+          "title": "Quantum research on algorithms"
+        },
+        {
+          "year": 2009,
+          "venue": "TQC",
+          "title": "Quantum Computing research on algorithms"
+        }
+      ]
+    },
+    {
+      "name": "Grace Williams",
+      "institution": "Stanford",
+      "publications": [
+        {
+          "year": 2009,
+          "venue": "FOCS",
+          "title": "Non-quantum algorithmic result"
+        },
+        {
+          "year": 2016,
+          "venue": "FOCS",
+          "title": "Quantum Computing advances in algorithm design"
+        },
+        {
+          "year": 2010,
+          "venue": "PRX_Q",
+          "title": "Quantum Information research on algorithms"
+        },
+        {
+          "year": 2015,
+          "venue": "TQC",
+          "title": "Quantum Information research on networks"
+        }
+      ]
+    },
+    {
+      "name": "Carol Brown",
+      "institution": "Stanford",
+      "publications": [
+        {
+          "year": 2017,
+          "venue": "FOCS",
+          "title": "Quantum Information advances in algorithm design"
+        },
+        {
+          "year": 2005,
+          "venue": "PRX_Q",
+          "title": "Quantum Cryptography research on networks"
+        },
+        {
+          "year": 2019,
+          "venue": "Quantum",
+          "title": "Quantum Computing research on optimization"
+        },
+        {
+          "year": 2025,
+          "venue": "Quantum",
+          "title": "Quantum research on codes"
+        },
+        {
+          "year": 2020,
+          "venue": "QIP",
+          "title": "Quantum Cryptography research on algorithms"
+        },
+        {
+          "year": 2024,
+          "venue": "NPJ_QI",
+          "title": "Quantum research on optimization"
+        }
+      ]
+    },
+    {
+      "name": "Eve Davis",
+      "institution": "Stanford",
+      "publications": [
+        {
+          "year": 2009,
+          "venue": "QIP",
+          "title": "Quantum research on algorithms"
+        },
+        {
+          "year": 2020,
+          "venue": "TQC",
+          "title": "Quantum research on codes"
+        },
+        {
+          "year": 2022,
+          "venue": "QCrypt",
+          "title": "Quantum Information research on optimization"
+        },
+        {
+          "year": 2016,
+          "venue": "SODA",
+          "title": "Non-quantum algorithmic result"
+        }
+      ]
+    },
+    {
+      "name": "Ivan Davis",
+      "institution": "Stanford",
+      "publications": [
+        {
+          "year": 2009,
+          "venue": "QIC",
+          "title": "Quantum research on optimization"
+        },
+        {
+          "year": 2024,
+          "venue": "QIC",
+          "title": "Quantum Computing research on networks"
+        },
+        {
+          "year": 2016,
+          "venue": "NPJ_QI",
+          "title": "Quantum Information research on optimization"
+        },
+        {
+          "year": 2012,
+          "venue": "Quantum",
+          "title": "Quantum research on algorithms"
+        },
+        {
+          "year": 2022,
+          "venue": "SODA",
+          "title": "Quantum Information advances in algorithm design"
+        },
+        {
+          "year": 2013,
+          "venue": "NPJ_QI",
+          "title": "Quantum research on optimization"
+        }
+      ]
+    },
+    {
+      "name": "Bob Brown",
+      "institution": "CMU",
+      "publications": [
+        {
+          "year": 2025,
+          "venue": "STOC",
+          "title": "Non-quantum algorithmic result"
+        },
+        {
+          "year": 2006,
+          "venue": "Quantum",
+          "title": "Qubit research on codes"
+        },
+        {
+          "year": 2023,
+          "venue": "NPJ_QI",
+          "title": "Quantum research on codes"
+        },
+        {
+          "year": 2023,
+          "venue": "NPJ_QI",
+          "title": "Qubit research on algorithms"
+        },
+        {
+          "year": 2009,
+          "venue": "STOC",
+          "title": "Qubit advances in algorithm design"
+        },
+        {
+          "year": 2009,
+          "venue": "FOCS",
+          "title": "Qubit advances in algorithm design"
+        }
+      ]
+    },
+    {
+      "name": "Bob Smith",
+      "institution": "CMU",
+      "publications": [
+        {
+          "year": 2005,
+          "venue": "Quantum",
+          "title": "Qubit research on algorithms"
+        },
+        {
+          "year": 2005,
+          "venue": "QCrypt",
+          "title": "Quantum Computing research on networks"
+        },
+        {
+          "year": 2009,
+          "venue": "QIC",
+          "title": "Quantum Cryptography research on networks"
+        },
+        {
+          "year": 2007,
+          "venue": "ACM_TQC",
+          "title": "Quantum Information research on algorithms"
+        }
+      ]
+    },
+    {
+      "name": "Ivan Clark",
+      "institution": "CMU",
+      "publications": [
+        {
+          "year": 2019,
+          "venue": "FOCS",
+          "title": "Quantum Cryptography advances in algorithm design"
+        },
+        {
+          "year": 2006,
+          "venue": "SODA",
+          "title": "Quantum Information advances in algorithm design"
+        },
+        {
+          "year": 2025,
+          "venue": "QIP",
+          "title": "Quantum research on optimization"
+        },
+        {
+          "year": 2017,
+          "venue": "QIC",
+          "title": "Quantum research on optimization"
+        }
+      ]
+    },
+    {
+      "name": "Heidi Johnson",
+      "institution": "CMU",
+      "publications": [
+        {
+          "year": 2015,
+          "venue": "STOC",
+          "title": "Qubit advances in algorithm design"
+        },
+        {
+          "year": 2013,
+          "venue": "STOC",
+          "title": "Non-quantum algorithmic result"
+        },
+        {
+          "year": 2022,
+          "venue": "Quantum",
+          "title": "Quantum Information research on algorithms"
+        },
+        {
+          "year": 2019,
+          "venue": "FOCS",
+          "title": "Non-quantum algorithmic result"
+        }
+      ]
+    },
+    {
+      "name": "Bob Johnson",
+      "institution": "CMU",
+      "publications": [
+        {
+          "year": 2025,
+          "venue": "FOCS",
+          "title": "Non-quantum algorithmic result"
+        },
+        {
+          "year": 2011,
+          "venue": "QIC",
+          "title": "Quantum Information research on codes"
+        },
+        {
+          "year": 2018,
+          "venue": "Quantum",
+          "title": "Quantum Information research on optimization"
+        },
+        {
+          "year": 2018,
+          "venue": "TQC",
+          "title": "Quantum Computing research on optimization"
+        },
+        {
+          "year": 2015,
+          "venue": "SODA",
+          "title": "Qubit advances in algorithm design"
+        },
+        {
+          "year": 2020,
+          "venue": "TQC",
+          "title": "Quantum research on networks"
+        }
+      ]
+    },
+    {
+      "name": "Bob Davis",
+      "institution": "UCB",
+      "publications": [
+        {
+          "year": 2016,
+          "venue": "QCrypt",
+          "title": "Quantum Cryptography research on networks"
+        },
+        {
+          "year": 2023,
+          "venue": "FOCS",
+          "title": "Quantum advances in algorithm design"
+        },
+        {
+          "year": 2018,
+          "venue": "Quantum",
+          "title": "Quantum Information research on networks"
+        },
+        {
+          "year": 2014,
+          "venue": "STOC",
+          "title": "Quantum advances in algorithm design"
+        }
+      ]
+    },
+    {
+      "name": "Judy Taylor",
+      "institution": "UCB",
+      "publications": [
+        {
+          "year": 2009,
+          "venue": "SODA",
+          "title": "Quantum advances in algorithm design"
+        },
+        {
+          "year": 2016,
+          "venue": "FOCS",
+          "title": "Quantum Computing advances in algorithm design"
+        },
+        {
+          "year": 2023,
+          "venue": "NPJ_QI",
+          "title": "Quantum Information research on networks"
+        },
+        {
+          "year": 2024,
+          "venue": "SODA",
+          "title": "Non-quantum algorithmic result"
+        }
+      ]
+    },
+    {
+      "name": "Eve Smith",
+      "institution": "UCB",
+      "publications": [
+        {
+          "year": 2013,
+          "venue": "PRX_Q",
+          "title": "Quantum Computing research on algorithms"
+        },
+        {
+          "year": 2005,
+          "venue": "QCrypt",
+          "title": "Qubit research on optimization"
+        },
+        {
+          "year": 2007,
+          "venue": "QCrypt",
+          "title": "Quantum research on networks"
+        },
+        {
+          "year": 2021,
+          "venue": "NPJ_QI",
+          "title": "Quantum Information research on optimization"
+        }
+      ]
+    },
+    {
+      "name": "Heidi Miller",
+      "institution": "UCB",
+      "publications": [
+        {
+          "year": 2016,
+          "venue": "PRX_Q",
+          "title": "Quantum Computing research on networks"
+        },
+        {
+          "year": 2006,
+          "venue": "QCrypt",
+          "title": "Qubit research on networks"
+        },
+        {
+          "year": 2007,
+          "venue": "PRX_Q",
+          "title": "Quantum Information research on optimization"
+        },
+        {
+          "year": 2020,
+          "venue": "STOC",
+          "title": "Quantum Computing advances in algorithm design"
+        }
+      ]
+    },
+    {
+      "name": "Dave Taylor",
+      "institution": "UCB",
+      "publications": [
+        {
+          "year": 2016,
+          "venue": "QIC",
+          "title": "Quantum research on algorithms"
+        },
+        {
+          "year": 2023,
+          "venue": "ACM_TQC",
+          "title": "Quantum Cryptography research on algorithms"
+        },
+        {
+          "year": 2006,
+          "venue": "NPJ_QI",
+          "title": "Quantum Information research on networks"
+        },
+        {
+          "year": 2005,
+          "venue": "NPJ_QI",
+          "title": "Quantum Computing research on codes"
+        }
+      ]
+    },
+    {
+      "name": "Carol Jones",
+      "institution": "Princeton",
+      "publications": [
+        {
+          "year": 2015,
+          "venue": "TQC",
+          "title": "Quantum research on optimization"
+        },
+        {
+          "year": 2018,
+          "venue": "QCrypt",
+          "title": "Qubit research on optimization"
+        },
+        {
+          "year": 2022,
+          "venue": "NPJ_QI",
+          "title": "Quantum Cryptography research on algorithms"
+        },
+        {
+          "year": 2007,
+          "venue": "QIC",
+          "title": "Quantum research on optimization"
+        },
+        {
+          "year": 2005,
+          "venue": "ACM_TQC",
+          "title": "Quantum research on algorithms"
+        }
+      ]
+    },
+    {
+      "name": "Judy Davis",
+      "institution": "Princeton",
+      "publications": [
+        {
+          "year": 2017,
+          "venue": "SODA",
+          "title": "Quantum advances in algorithm design"
+        },
+        {
+          "year": 2017,
+          "venue": "QIP",
+          "title": "Quantum Computing research on codes"
+        },
+        {
+          "year": 2024,
+          "venue": "ACM_TQC",
+          "title": "Quantum Computing research on networks"
+        },
+        {
+          "year": 2018,
+          "venue": "TQC",
+          "title": "Qubit research on optimization"
+        },
+        {
+          "year": 2023,
+          "venue": "QIC",
+          "title": "Quantum Cryptography research on networks"
+        },
+        {
+          "year": 2017,
+          "venue": "PRX_Q",
+          "title": "Quantum Computing research on codes"
+        }
+      ]
+    },
+    {
+      "name": "Frank Williams",
+      "institution": "Princeton",
+      "publications": [
+        {
+          "year": 2021,
+          "venue": "SODA",
+          "title": "Quantum Cryptography advances in algorithm design"
+        },
+        {
+          "year": 2011,
+          "venue": "Quantum",
+          "title": "Quantum Computing research on codes"
+        },
+        {
+          "year": 2012,
+          "venue": "TQC",
+          "title": "Qubit research on algorithms"
+        },
+        {
+          "year": 2011,
+          "venue": "QCrypt",
+          "title": "Quantum Cryptography research on codes"
+        }
+      ]
+    },
+    {
+      "name": "Bob Williams",
+      "institution": "Princeton",
+      "publications": [
+        {
+          "year": 2020,
+          "venue": "ACM_TQC",
+          "title": "Quantum Cryptography research on optimization"
+        },
+        {
+          "year": 2023,
+          "venue": "SODA",
+          "title": "Non-quantum algorithmic result"
+        },
+        {
+          "year": 2024,
+          "venue": "Quantum",
+          "title": "Quantum Computing research on codes"
+        },
+        {
+          "year": 2019,
+          "venue": "TQC",
+          "title": "Quantum Information research on optimization"
+        },
+        {
+          "year": 2025,
+          "venue": "PRX_Q",
+          "title": "Quantum Computing research on networks"
+        },
+        {
+          "year": 2016,
+          "venue": "FOCS",
+          "title": "Quantum Information advances in algorithm design"
+        }
+      ]
+    },
+    {
+      "name": "Heidi Smith",
+      "institution": "Princeton",
+      "publications": [
+        {
+          "year": 2016,
+          "venue": "PRX_Q",
+          "title": "Quantum research on networks"
+        },
+        {
+          "year": 2024,
+          "venue": "STOC",
+          "title": "Quantum Information advances in algorithm design"
+        },
+        {
+          "year": 2023,
+          "venue": "FOCS",
+          "title": "Non-quantum algorithmic result"
+        },
+        {
+          "year": 2006,
+          "venue": "ACM_TQC",
+          "title": "Quantum Cryptography research on codes"
+        }
+      ]
+    },
+    {
+      "name": "Frank Clark",
+      "institution": "Harvard",
+      "publications": [
+        {
+          "year": 2021,
+          "venue": "QCrypt",
+          "title": "Quantum research on optimization"
+        },
+        {
+          "year": 2008,
+          "venue": "Quantum",
+          "title": "Quantum research on codes"
+        },
+        {
+          "year": 2006,
+          "venue": "NPJ_QI",
+          "title": "Quantum Information research on optimization"
+        },
+        {
+          "year": 2021,
+          "venue": "FOCS",
+          "title": "Non-quantum algorithmic result"
+        },
+        {
+          "year": 2016,
+          "venue": "Quantum",
+          "title": "Quantum Computing research on optimization"
+        }
+      ]
+    },
+    {
+      "name": "Grace Miller",
+      "institution": "Harvard",
+      "publications": [
+        {
+          "year": 2024,
+          "venue": "QIP",
+          "title": "Quantum Computing research on networks"
+        },
+        {
+          "year": 2015,
+          "venue": "TQC",
+          "title": "Quantum Cryptography research on optimization"
+        },
+        {
+          "year": 2014,
+          "venue": "PRX_Q",
+          "title": "Quantum Cryptography research on codes"
+        },
+        {
+          "year": 2015,
+          "venue": "TQC",
+          "title": "Quantum Cryptography research on codes"
+        },
+        {
+          "year": 2016,
+          "venue": "PRX_Q",
+          "title": "Quantum Information research on codes"
+        },
+        {
+          "year": 2024,
+          "venue": "TQC",
+          "title": "Quantum Computing research on optimization"
+        }
+      ]
+    },
+    {
+      "name": "Frank Williams",
+      "institution": "Harvard",
+      "publications": [
+        {
+          "year": 2021,
+          "venue": "TQC",
+          "title": "Quantum Information research on algorithms"
+        },
+        {
+          "year": 2005,
+          "venue": "Quantum",
+          "title": "Quantum Computing research on codes"
+        },
+        {
+          "year": 2011,
+          "venue": "Quantum",
+          "title": "Quantum Information research on codes"
+        },
+        {
+          "year": 2012,
+          "venue": "QCrypt",
+          "title": "Qubit research on networks"
+        },
+        {
+          "year": 2014,
+          "venue": "TQC",
+          "title": "Quantum Cryptography research on networks"
+        },
+        {
+          "year": 2015,
+          "venue": "STOC",
+          "title": "Quantum Information advances in algorithm design"
+        }
+      ]
+    },
+    {
+      "name": "Carol Williams",
+      "institution": "Harvard",
+      "publications": [
+        {
+          "year": 2024,
+          "venue": "QCrypt",
+          "title": "Quantum Information research on networks"
+        },
+        {
+          "year": 2018,
+          "venue": "Quantum",
+          "title": "Qubit research on optimization"
+        },
+        {
+          "year": 2024,
+          "venue": "PRX_Q",
+          "title": "Quantum Information research on codes"
+        },
+        {
+          "year": 2022,
+          "venue": "NPJ_QI",
+          "title": "Quantum Computing research on optimization"
+        }
+      ]
+    },
+    {
+      "name": "Dave Miller",
+      "institution": "Harvard",
+      "publications": [
+        {
+          "year": 2023,
+          "venue": "ACM_TQC",
+          "title": "Quantum Information research on algorithms"
+        },
+        {
+          "year": 2017,
+          "venue": "FOCS",
+          "title": "Qubit advances in algorithm design"
+        },
+        {
+          "year": 2011,
+          "venue": "STOC",
+          "title": "Quantum Computing advances in algorithm design"
+        },
+        {
+          "year": 2006,
+          "venue": "SODA",
+          "title": "Quantum Computing advances in algorithm design"
+        },
+        {
+          "year": 2022,
+          "venue": "TQC",
+          "title": "Quantum Cryptography research on networks"
+        },
+        {
+          "year": 2014,
+          "venue": "TQC",
+          "title": "Qubit research on algorithms"
+        }
+      ]
+    },
+    {
+      "name": "Heidi Taylor",
+      "institution": "Chicago",
+      "publications": [
+        {
+          "year": 2018,
+          "venue": "TQC",
+          "title": "Qubit research on optimization"
+        },
+        {
+          "year": 2016,
+          "venue": "QIP",
+          "title": "Quantum Information research on networks"
+        },
+        {
+          "year": 2017,
+          "venue": "FOCS",
+          "title": "Quantum Information advances in algorithm design"
+        },
+        {
+          "year": 2007,
+          "venue": "Quantum",
+          "title": "Qubit research on networks"
+        }
+      ]
+    },
+    {
+      "name": "Frank Johnson",
+      "institution": "Chicago",
+      "publications": [
+        {
+          "year": 2025,
+          "venue": "Quantum",
+          "title": "Qubit research on codes"
+        },
+        {
+          "year": 2006,
+          "venue": "PRX_Q",
+          "title": "Quantum Information research on codes"
+        },
+        {
+          "year": 2020,
+          "venue": "ACM_TQC",
+          "title": "Quantum Cryptography research on networks"
+        },
+        {
+          "year": 2007,
+          "venue": "QIP",
+          "title": "Quantum Computing research on codes"
+        },
+        {
+          "year": 2009,
+          "venue": "FOCS",
+          "title": "Non-quantum algorithmic result"
+        },
+        {
+          "year": 2024,
+          "venue": "FOCS",
+          "title": "Quantum Computing advances in algorithm design"
+        }
+      ]
+    },
+    {
+      "name": "Dave Jones",
+      "institution": "Chicago",
+      "publications": [
+        {
+          "year": 2006,
+          "venue": "NPJ_QI",
+          "title": "Quantum Information research on optimization"
+        },
+        {
+          "year": 2007,
+          "venue": "TQC",
+          "title": "Quantum Information research on networks"
+        },
+        {
+          "year": 2025,
+          "venue": "FOCS",
+          "title": "Qubit advances in algorithm design"
+        },
+        {
+          "year": 2014,
+          "venue": "QIC",
+          "title": "Quantum research on algorithms"
+        }
+      ]
+    },
+    {
+      "name": "Dave Clark",
+      "institution": "Chicago",
+      "publications": [
+        {
+          "year": 2010,
+          "venue": "SODA",
+          "title": "Non-quantum algorithmic result"
+        },
+        {
+          "year": 2021,
+          "venue": "Quantum",
+          "title": "Quantum research on networks"
+        },
+        {
+          "year": 2017,
+          "venue": "ACM_TQC",
+          "title": "Quantum research on optimization"
+        },
+        {
+          "year": 2016,
+          "venue": "PRX_Q",
+          "title": "Quantum research on algorithms"
+        },
+        {
+          "year": 2007,
+          "venue": "Quantum",
+          "title": "Qubit research on networks"
+        }
+      ]
+    },
+    {
+      "name": "Judy Miller",
+      "institution": "Chicago",
+      "publications": [
+        {
+          "year": 2006,
+          "venue": "Quantum",
+          "title": "Quantum Cryptography research on algorithms"
+        },
+        {
+          "year": 2025,
+          "venue": "QCrypt",
+          "title": "Quantum Information research on optimization"
+        },
+        {
+          "year": 2025,
+          "venue": "QCrypt",
+          "title": "Qubit research on networks"
+        },
+        {
+          "year": 2019,
+          "venue": "QIP",
+          "title": "Quantum Computing research on codes"
+        }
+      ]
+    },
+    {
+      "name": "Alice Brown",
+      "institution": "UW",
+      "publications": [
+        {
+          "year": 2015,
+          "venue": "PRX_Q",
+          "title": "Quantum Cryptography research on optimization"
+        },
+        {
+          "year": 2022,
+          "venue": "ACM_TQC",
+          "title": "Quantum Computing research on networks"
+        },
+        {
+          "year": 2025,
+          "venue": "NPJ_QI",
+          "title": "Quantum Computing research on algorithms"
+        },
+        {
+          "year": 2006,
+          "venue": "SODA",
+          "title": "Quantum advances in algorithm design"
+        }
+      ]
+    },
+    {
+      "name": "Frank Davis",
+      "institution": "UW",
+      "publications": [
+        {
+          "year": 2019,
+          "venue": "QIC",
+          "title": "Quantum Computing research on codes"
+        },
+        {
+          "year": 2020,
+          "venue": "ACM_TQC",
+          "title": "Quantum Computing research on algorithms"
+        },
+        {
+          "year": 2007,
+          "venue": "QIC",
+          "title": "Quantum research on optimization"
+        },
+        {
+          "year": 2024,
+          "venue": "QCrypt",
+          "title": "Quantum Cryptography research on algorithms"
+        },
+        {
+          "year": 2015,
+          "venue": "TQC",
+          "title": "Quantum research on algorithms"
+        }
+      ]
+    },
+    {
+      "name": "Eve Jones",
+      "institution": "UW",
+      "publications": [
+        {
+          "year": 2024,
+          "venue": "QIC",
+          "title": "Qubit research on optimization"
+        },
+        {
+          "year": 2016,
+          "venue": "ACM_TQC",
+          "title": "Quantum research on algorithms"
+        },
+        {
+          "year": 2024,
+          "venue": "QIC",
+          "title": "Quantum Computing research on networks"
+        },
+        {
+          "year": 2007,
+          "venue": "SODA",
+          "title": "Non-quantum algorithmic result"
+        },
+        {
+          "year": 2016,
+          "venue": "FOCS",
+          "title": "Non-quantum algorithmic result"
+        }
+      ]
+    },
+    {
+      "name": "Carol Smith",
+      "institution": "UW",
+      "publications": [
+        {
+          "year": 2024,
+          "venue": "SODA",
+          "title": "Non-quantum algorithmic result"
+        },
+        {
+          "year": 2006,
+          "venue": "QCrypt",
+          "title": "Quantum research on codes"
+        },
+        {
+          "year": 2025,
+          "venue": "Quantum",
+          "title": "Quantum Computing research on optimization"
+        },
+        {
+          "year": 2023,
+          "venue": "QIP",
+          "title": "Quantum Cryptography research on codes"
+        }
+      ]
+    },
+    {
+      "name": "Heidi Miller",
+      "institution": "UW",
+      "publications": [
+        {
+          "year": 2019,
+          "venue": "TQC",
+          "title": "Quantum Cryptography research on codes"
+        },
+        {
+          "year": 2021,
+          "venue": "Quantum",
+          "title": "Quantum Information research on algorithms"
+        },
+        {
+          "year": 2025,
+          "venue": "PRX_Q",
+          "title": "Qubit research on networks"
+        },
+        {
+          "year": 2005,
+          "venue": "QCrypt",
+          "title": "Quantum Information research on optimization"
+        },
+        {
+          "year": 2022,
+          "venue": "TQC",
+          "title": "Quantum Computing research on algorithms"
+        }
+      ]
+    },
+    {
+      "name": "Heidi Brown",
+      "institution": "UTAustin",
+      "publications": [
+        {
+          "year": 2014,
+          "venue": "ACM_TQC",
+          "title": "Qubit research on networks"
+        },
+        {
+          "year": 2009,
+          "venue": "TQC",
+          "title": "Quantum Information research on codes"
+        },
+        {
+          "year": 2019,
+          "venue": "TQC",
+          "title": "Quantum Computing research on algorithms"
+        },
+        {
+          "year": 2007,
+          "venue": "FOCS",
+          "title": "Quantum Computing advances in algorithm design"
+        },
+        {
+          "year": 2010,
+          "venue": "SODA",
+          "title": "Quantum Computing advances in algorithm design"
+        },
+        {
+          "year": 2021,
+          "venue": "NPJ_QI",
+          "title": "Quantum research on codes"
+        }
+      ]
+    },
+    {
+      "name": "Carol Brown",
+      "institution": "UTAustin",
+      "publications": [
+        {
+          "year": 2005,
+          "venue": "Quantum",
+          "title": "Quantum Cryptography research on algorithms"
+        },
+        {
+          "year": 2019,
+          "venue": "FOCS",
+          "title": "Quantum advances in algorithm design"
+        },
+        {
+          "year": 2007,
+          "venue": "PRX_Q",
+          "title": "Quantum Information research on optimization"
+        },
+        {
+          "year": 2021,
+          "venue": "QIC",
+          "title": "Quantum Information research on networks"
+        },
+        {
+          "year": 2009,
+          "venue": "Quantum",
+          "title": "Quantum research on optimization"
+        }
+      ]
+    },
+    {
+      "name": "Heidi Taylor",
+      "institution": "UTAustin",
+      "publications": [
+        {
+          "year": 2009,
+          "venue": "FOCS",
+          "title": "Non-quantum algorithmic result"
+        },
+        {
+          "year": 2010,
+          "venue": "QCrypt",
+          "title": "Quantum Information research on networks"
+        },
+        {
+          "year": 2008,
+          "venue": "FOCS",
+          "title": "Qubit advances in algorithm design"
+        },
+        {
+          "year": 2010,
+          "venue": "Quantum",
+          "title": "Qubit research on algorithms"
+        },
+        {
+          "year": 2021,
+          "venue": "PRX_Q",
+          "title": "Quantum research on algorithms"
+        }
+      ]
+    },
+    {
+      "name": "Dave Taylor",
+      "institution": "UTAustin",
+      "publications": [
+        {
+          "year": 2009,
+          "venue": "SODA",
+          "title": "Quantum Cryptography advances in algorithm design"
+        },
+        {
+          "year": 2007,
+          "venue": "FOCS",
+          "title": "Non-quantum algorithmic result"
+        },
+        {
+          "year": 2023,
+          "venue": "STOC",
+          "title": "Quantum Cryptography advances in algorithm design"
+        },
+        {
+          "year": 2024,
+          "venue": "Quantum",
+          "title": "Quantum Cryptography research on networks"
+        },
+        {
+          "year": 2005,
+          "venue": "TQC",
+          "title": "Quantum research on algorithms"
+        }
+      ]
+    },
+    {
+      "name": "Dave Clark",
+      "institution": "UTAustin",
+      "publications": [
+        {
+          "year": 2024,
+          "venue": "SODA",
+          "title": "Quantum Cryptography advances in algorithm design"
+        },
+        {
+          "year": 2014,
+          "venue": "SODA",
+          "title": "Non-quantum algorithmic result"
+        },
+        {
+          "year": 2020,
+          "venue": "NPJ_QI",
+          "title": "Quantum Information research on algorithms"
+        },
+        {
+          "year": 2019,
+          "venue": "TQC",
+          "title": "Quantum research on codes"
+        },
+        {
+          "year": 2019,
+          "venue": "QIC",
+          "title": "Quantum Information research on optimization"
+        }
+      ]
+    },
+    {
+      "name": "Dave Miller",
+      "institution": "UIUC",
+      "publications": [
+        {
+          "year": 2009,
+          "venue": "Quantum",
+          "title": "Quantum Computing research on algorithms"
+        },
+        {
+          "year": 2017,
+          "venue": "QCrypt",
+          "title": "Quantum Computing research on networks"
+        },
+        {
+          "year": 2015,
+          "venue": "NPJ_QI",
+          "title": "Quantum Information research on networks"
+        },
+        {
+          "year": 2013,
+          "venue": "ACM_TQC",
+          "title": "Qubit research on codes"
+        },
+        {
+          "year": 2008,
+          "venue": "QIP",
+          "title": "Quantum Computing research on optimization"
+        },
+        {
+          "year": 2024,
+          "venue": "QIC",
+          "title": "Qubit research on codes"
+        }
+      ]
+    },
+    {
+      "name": "Frank Clark",
+      "institution": "UIUC",
+      "publications": [
+        {
+          "year": 2015,
+          "venue": "NPJ_QI",
+          "title": "Qubit research on optimization"
+        },
+        {
+          "year": 2021,
+          "venue": "ACM_TQC",
+          "title": "Quantum Information research on algorithms"
+        },
+        {
+          "year": 2020,
+          "venue": "QIP",
+          "title": "Quantum research on optimization"
+        },
+        {
+          "year": 2021,
+          "venue": "ACM_TQC",
+          "title": "Qubit research on codes"
+        },
+        {
+          "year": 2023,
+          "venue": "Quantum",
+          "title": "Quantum research on networks"
+        },
+        {
+          "year": 2014,
+          "venue": "ACM_TQC",
+          "title": "Quantum Cryptography research on optimization"
+        }
+      ]
+    },
+    {
+      "name": "Eve Taylor",
+      "institution": "UIUC",
+      "publications": [
+        {
+          "year": 2008,
+          "venue": "QIC",
+          "title": "Qubit research on algorithms"
+        },
+        {
+          "year": 2016,
+          "venue": "QIC",
+          "title": "Quantum Computing research on networks"
+        },
+        {
+          "year": 2017,
+          "venue": "QIP",
+          "title": "Quantum Cryptography research on codes"
+        },
+        {
+          "year": 2016,
+          "venue": "FOCS",
+          "title": "Quantum Information advances in algorithm design"
+        }
+      ]
+    },
+    {
+      "name": "Ivan Wilson",
+      "institution": "UIUC",
+      "publications": [
+        {
+          "year": 2013,
+          "venue": "STOC",
+          "title": "Non-quantum algorithmic result"
+        },
+        {
+          "year": 2008,
+          "venue": "QCrypt",
+          "title": "Quantum research on optimization"
+        },
+        {
+          "year": 2016,
+          "venue": "Quantum",
+          "title": "Quantum Cryptography research on algorithms"
+        },
+        {
+          "year": 2009,
+          "venue": "NPJ_QI",
+          "title": "Quantum Cryptography research on optimization"
+        },
+        {
+          "year": 2021,
+          "venue": "QIP",
+          "title": "Quantum research on networks"
+        },
+        {
+          "year": 2009,
+          "venue": "Quantum",
+          "title": "Quantum Information research on optimization"
+        }
+      ]
+    },
+    {
+      "name": "Carol Clark",
+      "institution": "UIUC",
+      "publications": [
+        {
+          "year": 2009,
+          "venue": "Quantum",
+          "title": "Quantum Cryptography research on algorithms"
+        },
+        {
+          "year": 2010,
+          "venue": "QIC",
+          "title": "Quantum Cryptography research on algorithms"
+        },
+        {
+          "year": 2023,
+          "venue": "Quantum",
+          "title": "Quantum Cryptography research on optimization"
+        },
+        {
+          "year": 2023,
+          "venue": "PRX_Q",
+          "title": "Quantum Information research on networks"
+        },
+        {
+          "year": 2016,
+          "venue": "Quantum",
+          "title": "Quantum research on optimization"
+        },
+        {
+          "year": 2023,
+          "venue": "PRX_Q",
+          "title": "Quantum research on optimization"
+        }
+      ]
+    },
+    {
+      "name": "Eve Clark",
+      "institution": "UBC",
+      "publications": [
+        {
+          "year": 2012,
+          "venue": "QIP",
+          "title": "Quantum Cryptography research on optimization"
+        },
+        {
+          "year": 2010,
+          "venue": "FOCS",
+          "title": "Non-quantum algorithmic result"
+        },
+        {
+          "year": 2024,
+          "venue": "QIC",
+          "title": "Qubit research on codes"
+        },
+        {
+          "year": 2006,
+          "venue": "STOC",
+          "title": "Non-quantum algorithmic result"
+        },
+        {
+          "year": 2008,
+          "venue": "NPJ_QI",
+          "title": "Quantum research on optimization"
+        },
+        {
+          "year": 2015,
+          "venue": "QIC",
+          "title": "Qubit research on optimization"
+        }
+      ]
+    },
+    {
+      "name": "Dave Davis",
+      "institution": "UBC",
+      "publications": [
+        {
+          "year": 2024,
+          "venue": "ACM_TQC",
+          "title": "Quantum research on codes"
+        },
+        {
+          "year": 2021,
+          "venue": "NPJ_QI",
+          "title": "Quantum Cryptography research on algorithms"
+        },
+        {
+          "year": 2020,
+          "venue": "FOCS",
+          "title": "Qubit advances in algorithm design"
+        },
+        {
+          "year": 2019,
+          "venue": "FOCS",
+          "title": "Quantum Computing advances in algorithm design"
+        },
+        {
+          "year": 2025,
+          "venue": "PRX_Q",
+          "title": "Quantum Cryptography research on optimization"
+        },
+        {
+          "year": 2011,
+          "venue": "NPJ_QI",
+          "title": "Quantum Computing research on algorithms"
+        }
+      ]
+    },
+    {
+      "name": "Dave Jones",
+      "institution": "UBC",
+      "publications": [
+        {
+          "year": 2011,
+          "venue": "ACM_TQC",
+          "title": "Quantum Computing research on optimization"
+        },
+        {
+          "year": 2016,
+          "venue": "FOCS",
+          "title": "Non-quantum algorithmic result"
+        },
+        {
+          "year": 2013,
+          "venue": "PRX_Q",
+          "title": "Quantum research on optimization"
+        },
+        {
+          "year": 2017,
+          "venue": "Quantum",
+          "title": "Qubit research on algorithms"
+        },
+        {
+          "year": 2006,
+          "venue": "PRX_Q",
+          "title": "Quantum research on algorithms"
+        }
+      ]
+    },
+    {
+      "name": "Heidi Jones",
+      "institution": "UBC",
+      "publications": [
+        {
+          "year": 2020,
+          "venue": "NPJ_QI",
+          "title": "Qubit research on algorithms"
+        },
+        {
+          "year": 2022,
+          "venue": "PRX_Q",
+          "title": "Qubit research on networks"
+        },
+        {
+          "year": 2024,
+          "venue": "STOC",
+          "title": "Quantum advances in algorithm design"
+        },
+        {
+          "year": 2021,
+          "venue": "NPJ_QI",
+          "title": "Qubit research on networks"
+        },
+        {
+          "year": 2008,
+          "venue": "QIC",
+          "title": "Quantum Computing research on optimization"
+        },
+        {
+          "year": 2008,
+          "venue": "SODA",
+          "title": "Non-quantum algorithmic result"
+        }
+      ]
+    },
+    {
+      "name": "Alice Taylor",
+      "institution": "UBC",
+      "publications": [
+        {
+          "year": 2018,
+          "venue": "SODA",
+          "title": "Non-quantum algorithmic result"
+        },
+        {
+          "year": 2020,
+          "venue": "ACM_TQC",
+          "title": "Qubit research on algorithms"
+        },
+        {
+          "year": 2015,
+          "venue": "PRX_Q",
+          "title": "Quantum research on networks"
+        },
+        {
+          "year": 2025,
+          "venue": "STOC",
+          "title": "Quantum advances in algorithm design"
+        }
+      ]
+    },
+    {
+      "name": "Carol Davis",
+      "institution": "NUS",
+      "publications": [
+        {
+          "year": 2006,
+          "venue": "QIC",
+          "title": "Quantum Information research on codes"
+        },
+        {
+          "year": 2014,
+          "venue": "QIP",
+          "title": "Quantum research on algorithms"
+        },
+        {
+          "year": 2023,
+          "venue": "STOC",
+          "title": "Quantum Computing advances in algorithm design"
+        },
+        {
+          "year": 2014,
+          "venue": "ACM_TQC",
+          "title": "Quantum Cryptography research on optimization"
+        }
+      ]
+    },
+    {
+      "name": "Carol Taylor",
+      "institution": "NUS",
+      "publications": [
+        {
+          "year": 2013,
+          "venue": "NPJ_QI",
+          "title": "Quantum research on algorithms"
+        },
+        {
+          "year": 2010,
+          "venue": "ACM_TQC",
+          "title": "Quantum Computing research on codes"
+        },
+        {
+          "year": 2005,
+          "venue": "Quantum",
+          "title": "Quantum Computing research on codes"
+        },
+        {
+          "year": 2010,
+          "venue": "STOC",
+          "title": "Non-quantum algorithmic result"
+        },
+        {
+          "year": 2017,
+          "venue": "QIC",
+          "title": "Quantum Cryptography research on algorithms"
+        }
+      ]
+    },
+    {
+      "name": "Bob Davis",
+      "institution": "NUS",
+      "publications": [
+        {
+          "year": 2008,
+          "venue": "QCrypt",
+          "title": "Qubit research on optimization"
+        },
+        {
+          "year": 2015,
+          "venue": "NPJ_QI",
+          "title": "Quantum research on algorithms"
+        },
+        {
+          "year": 2017,
+          "venue": "NPJ_QI",
+          "title": "Quantum Information research on algorithms"
+        },
+        {
+          "year": 2015,
+          "venue": "PRX_Q",
+          "title": "Quantum Cryptography research on networks"
+        },
+        {
+          "year": 2013,
+          "venue": "SODA",
+          "title": "Qubit advances in algorithm design"
+        },
+        {
+          "year": 2006,
+          "venue": "SODA",
+          "title": "Quantum Computing advances in algorithm design"
+        }
+      ]
+    },
+    {
+      "name": "Carol Davis",
+      "institution": "NUS",
+      "publications": [
+        {
+          "year": 2021,
+          "venue": "PRX_Q",
+          "title": "Quantum research on algorithms"
+        },
+        {
+          "year": 2016,
+          "venue": "STOC",
+          "title": "Qubit advances in algorithm design"
+        },
+        {
+          "year": 2020,
+          "venue": "QCrypt",
+          "title": "Quantum Information research on algorithms"
+        },
+        {
+          "year": 2018,
+          "venue": "FOCS",
+          "title": "Non-quantum algorithmic result"
+        },
+        {
+          "year": 2022,
+          "venue": "SODA",
+          "title": "Non-quantum algorithmic result"
+        },
+        {
+          "year": 2012,
+          "venue": "SODA",
+          "title": "Non-quantum algorithmic result"
+        }
+      ]
+    },
+    {
+      "name": "Bob Taylor",
+      "institution": "NUS",
+      "publications": [
+        {
+          "year": 2021,
+          "venue": "Quantum",
+          "title": "Quantum research on networks"
+        },
+        {
+          "year": 2006,
+          "venue": "FOCS",
+          "title": "Non-quantum algorithmic result"
+        },
+        {
+          "year": 2011,
+          "venue": "STOC",
+          "title": "Qubit advances in algorithm design"
+        },
+        {
+          "year": 2015,
+          "venue": "FOCS",
+          "title": "Qubit advances in algorithm design"
+        },
+        {
+          "year": 2023,
+          "venue": "ACM_TQC",
+          "title": "Quantum research on optimization"
+        }
+      ]
+    },
+    {
+      "name": "Alice Wilson",
+      "institution": "HUJ",
+      "publications": [
+        {
+          "year": 2021,
+          "venue": "QIC",
+          "title": "Quantum Information research on networks"
+        },
+        {
+          "year": 2022,
+          "venue": "ACM_TQC",
+          "title": "Quantum Computing research on networks"
+        },
+        {
+          "year": 2017,
+          "venue": "PRX_Q",
+          "title": "Quantum research on codes"
+        },
+        {
+          "year": 2023,
+          "venue": "TQC",
+          "title": "Quantum research on optimization"
+        }
+      ]
+    },
+    {
+      "name": "Frank Johnson",
+      "institution": "HUJ",
+      "publications": [
+        {
+          "year": 2006,
+          "venue": "TQC",
+          "title": "Quantum Information research on networks"
+        },
+        {
+          "year": 2014,
+          "venue": "QIC",
+          "title": "Qubit research on codes"
+        },
+        {
+          "year": 2025,
+          "venue": "SODA",
+          "title": "Non-quantum algorithmic result"
+        },
+        {
+          "year": 2016,
+          "venue": "QIC",
+          "title": "Quantum Information research on optimization"
+        },
+        {
+          "year": 2017,
+          "venue": "TQC",
+          "title": "Quantum Cryptography research on codes"
+        },
+        {
+          "year": 2025,
+          "venue": "Quantum",
+          "title": "Quantum research on codes"
+        }
+      ]
+    },
+    {
+      "name": "Ivan Davis",
+      "institution": "HUJ",
+      "publications": [
+        {
+          "year": 2009,
+          "venue": "NPJ_QI",
+          "title": "Quantum research on networks"
+        },
+        {
+          "year": 2014,
+          "venue": "ACM_TQC",
+          "title": "Quantum Cryptography research on optimization"
+        },
+        {
+          "year": 2022,
+          "venue": "QIC",
+          "title": "Qubit research on codes"
+        },
+        {
+          "year": 2019,
+          "venue": "Quantum",
+          "title": "Qubit research on algorithms"
+        },
+        {
+          "year": 2011,
+          "venue": "TQC",
+          "title": "Quantum research on optimization"
+        },
+        {
+          "year": 2024,
+          "venue": "QIP",
+          "title": "Qubit research on codes"
+        }
+      ]
+    },
+    {
+      "name": "Bob Johnson",
+      "institution": "HUJ",
+      "publications": [
+        {
+          "year": 2006,
+          "venue": "ACM_TQC",
+          "title": "Quantum Cryptography research on networks"
+        },
+        {
+          "year": 2012,
+          "venue": "QIP",
+          "title": "Quantum Information research on optimization"
+        },
+        {
+          "year": 2012,
+          "venue": "FOCS",
+          "title": "Quantum advances in algorithm design"
+        },
+        {
+          "year": 2009,
+          "venue": "FOCS",
+          "title": "Non-quantum algorithmic result"
+        },
+        {
+          "year": 2012,
+          "venue": "STOC",
+          "title": "Quantum Cryptography advances in algorithm design"
+        },
+        {
+          "year": 2015,
+          "venue": "NPJ_QI",
+          "title": "Quantum Computing research on codes"
+        }
+      ]
+    },
+    {
+      "name": "Ivan Brown",
+      "institution": "HUJ",
+      "publications": [
+        {
+          "year": 2014,
+          "venue": "PRX_Q",
+          "title": "Quantum research on codes"
+        },
+        {
+          "year": 2025,
+          "venue": "SODA",
+          "title": "Quantum Information advances in algorithm design"
+        },
+        {
+          "year": 2006,
+          "venue": "Quantum",
+          "title": "Quantum Information research on algorithms"
+        },
+        {
+          "year": 2018,
+          "venue": "QIC",
+          "title": "Qubit research on algorithms"
+        },
+        {
+          "year": 2017,
+          "venue": "QCrypt",
+          "title": "Quantum Cryptography research on optimization"
+        }
+      ]
+    }
+  ]
+}
