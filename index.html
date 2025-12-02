@@ -1,0 +1,360 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Benjamin Asch</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="Academic website of Benjamin Asch.">
+
+  <!-- Fonts: modern serif for headings, clean sans for body -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@500;600&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+  <script>
+    window.MathJax = {
+      tex: {
+        inlineMath: [["$", "$"], ["\\(", "\\)"]],
+        displayMath: [["$$", "$$"], ["\\[", "\\]"]]
+      },
+      svg: { fontCache: "global" }
+    };
+  </script>
+  
+  <script async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-svg.js"></script>
+  
+
+  <style>
+    /* Layout */
+    html, body {
+      margin: 0;
+      padding: 0;
+    }
+    body {
+      font-family: "Inter", -apple-system, BlinkMacSystemFont, system-ui, sans-serif;
+      line-height: 1.7;
+      color: #17151b;
+      background: #f8f5f1;
+    }
+    .page {
+      max-width: 760px;
+      margin: 0 auto;
+      padding: 32px 16px 40px;
+    }
+
+    /* Typography */
+    h1, h2 {
+      font-family: "Cormorant Garamond", "Georgia", "Times New Roman", serif;
+      font-weight: 500;
+      margin: 0;
+      color: #1b171f;
+    }
+    h1 {
+      font-size: 2.2rem;
+      margin-bottom: 6px;
+    }
+    h2 {
+      font-size: 1.35rem;
+      margin: 24px 0 10px;
+    }
+    p {
+      margin: 0 0 12px;
+      font-size: 0.97rem;
+    }
+    small {
+      color: #7a7580;
+    }
+
+    a {
+      color: #2556b3;
+      text-decoration: none;
+    }
+    a:hover {
+      text-decoration: underline;
+    }
+
+    code {
+      font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
+      font-size: 0.9em;
+      background: #ece6dd;
+      padding: 0 3px;
+      border-radius: 3px;
+    }
+
+    /* Header block */
+    .header {
+      display: flex;
+      align-items: flex-start;
+      gap: 18px;
+      margin-bottom: 18px;
+    }
+    .header-main {
+      flex: 1 1 auto;
+      min-width: 0;
+    }
+    .tagline {
+      margin: 0;
+      font-size: 0.95rem;
+      color: #5e5864;
+    }
+
+    .headshot {
+      flex: 0 0 110px;
+      height: 110px;
+      border-radius: 50%;
+      overflow: hidden;
+      border: 1px solid #d8d1c7;
+      background: #f0e8dd;
+    }
+    .headshot img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      display: block;
+    }
+
+    @media (max-width: 640px) {
+      .header {
+        flex-direction: column-reverse;
+      }
+      .headshot {
+        align-self: flex-start;
+      }
+    }
+
+    /* Links / meta line */
+    .meta-links {
+      font-size: 0.9rem;
+      margin-top: 6px;
+      color: #4c4753;
+    }
+    .meta-links a {
+      margin-right: 10px;
+    }
+    .meta-sep {
+      margin: 0 6px;
+      color: #c1bab0;
+    }
+
+    /* Tabs */
+    .tabs {
+      margin-top: 18px;
+      border-bottom: 1px solid #e0d7cd;
+      display: flex;
+      gap: 10px;
+      font-size: 0.9rem;
+      overflow-x: auto;
+    }
+    .tab-button {
+      border: none;
+      background: none;
+      padding: 6px 10px 10px;
+      font: inherit;
+      color: #6a6470;
+      cursor: pointer;
+      border-bottom: 2px solid transparent;
+      white-space: nowrap;
+    }
+    .tab-button[aria-selected="true"] {
+      color: #1f1a24;
+      border-color: #2556b3;
+      font-weight: 500;
+    }
+    .tab-button:focus-visible {
+      outline: 2px solid #2556b3;
+      outline-offset: 2px;
+    }
+
+    /* Sections */
+    .section {
+      margin-top: 18px;
+    }
+
+    [data-tab-panel] {
+      display: none;
+    }
+    [data-tab-panel].is-active {
+      display: block;
+    }
+
+    /* Footer */
+    footer {
+      margin-top: 28px;
+      font-size: 0.8rem;
+      color: #7f7884;
+    }
+  </style>
+</head>
+<body>
+  <div class="page">
+    <header class="header">
+      <div class="header-main">
+        <h1>Benjamin Asch</h1>
+        <p class="tagline">
+          MSc student in Quantum Engineering, ETH Zürich
+        </p>
+        <div class="meta-links">
+          <a href="https://arxiv.org/search/?query=Benjamin+Asch&searchtype=all&abstracts=show&order=-announced_date_first&size=50" target="_blank" rel="noopener">arXiv</a>
+          <span class="meta-sep">·</span>
+          <a href="https://scholar.google.com/citations?hl=en&user=rI_dXDgAAAAJ&view_op=list_works&sortby=pubdate" target="_blank" rel="noopener">Google&nbsp;Scholar</a>
+          <span class="meta-sep">·</span>
+          <a href="https://www.linkedin.com/in/benjamin-asch123/" target="_blank" rel="noopener">LinkedIn</a>
+          <span class="meta-sep">·</span>
+          <a href="mailto:benjamintasch@berkeley.edu">Email</a>
+        </div>
+      </div>
+      <div class="headshot">
+        <img src="me_img.jpg" alt="Photo of Benjamin Asch">
+      </div>
+    </header>
+
+    <!-- Tabs -->
+    <nav class="tabs" aria-label="Sections">
+      <button
+        class="tab-button"
+        type="button"
+        data-tab-button="overview"
+        aria-selected="true"
+      >
+        Overview
+      </button>
+      <button
+        class="tab-button"
+        type="button"
+        data-tab-button="rankings"
+        aria-selected="false"
+      >
+        Quantum rankings project
+      </button>
+      <button
+        class="tab-button"
+        type="button"
+        data-tab-button="trips"
+        aria-selected="false"
+      >
+        Trips / misc
+      </button>
+    </nav>
+
+    <main>
+      <!-- Overview tab -->
+      <section
+        class="section"
+        id="overview"
+        data-tab-panel="overview"
+      >
+        <h2>About</h2>
+        <p>
+          I am a Master's student in Quantum Engineering at ETH Zürich. Broadly,
+          I am interested in quantum information, optimization, and the geometry
+          of variational quantum algorithms, especially in regimes where tools
+          from analysis, probability, and theoretical computer science all
+          interact.
+        </p>
+        <p>
+          Before ETH, I studied Electrical Engineering and Computer Sciences
+          (with a minor in mathematics) at UC Berkeley. Recently I have been
+          thinking about provable guarantees for VQE-style methods, how
+          low-rank structure in the Hessian affects the landscape, and when this
+          structure can be turned into concrete sample and runtime improvements.
+        </p>
+      </section>
+
+      <!-- Quantum rankings tab -->
+      <section
+        class="section"
+        id="quantum-rankings"
+        data-tab-panel="rankings"
+      >
+        <h2>Quantum rankings project</h2>
+        <p>
+          I am working on a small side project that uses publication and
+          conference data to explore research strength in quantum information
+          and computation across institutions.
+        </p>
+        <p>
+          The goal is not to produce a single “leaderboard”, but to give people
+          a way to slice the data themselves: by subarea, venue, or time window.
+        </p>
+        <p>
+          Website: <a href="#" target="_blank" rel="noopener">coming soon</a>
+        </p>
+      </section>
+
+      <!-- Trips / misc tab -->
+      <section
+        class="section"
+        id="misc"
+        data-tab-panel="trips"
+      >
+        <h2>Trips / miscellaneous</h2>
+        <p>
+          Outside of research, I like long bikepacking routes and projects that
+          sit slightly outside the usual academic pipeline.
+        </p>
+        <p>
+          At some point, this section will probably collect short writeups:
+          notes from rides (e.g. Alps Divide Rally, Hope 1000), small
+          experiments, and other things that don’t really belong on a CV.
+        </p>
+        <p>
+          <small>
+            Eventually this may split into separate pages like
+            <code>/trips</code>, <code>/notes</code>, or
+            <code>/projects</code>.
+          </small>
+        </p>
+      </section>
+    </main>
+
+    <footer>
+      &copy; <span id="year"></span> Benjamin Asch.
+    </footer>
+  </div>
+
+  <script>
+    // Simple tabs
+    const buttons = document.querySelectorAll("[data-tab-button]");
+    const panels = document.querySelectorAll("[data-tab-panel]");
+
+    function activateTab(name) {
+      buttons.forEach(btn => {
+        const selected = btn.getAttribute("data-tab-button") === name;
+        btn.setAttribute("aria-selected", selected ? "true" : "false");
+      });
+      panels.forEach(panel => {
+        const active = panel.getAttribute("data-tab-panel") === name;
+        panel.classList.toggle("is-active", active);
+      });
+    }
+
+    // Initial: show "overview"
+    activateTab("overview");
+
+    buttons.forEach(btn => {
+      btn.addEventListener("click", () => {
+        const name = btn.getAttribute("data-tab-button");
+        activateTab(name);
+      });
+    });
+
+    // Footer year
+    document.getElementById("year").textContent = new Date().getFullYear();
+  </script>
+
+  <script type="application/ld+json">
+    {
+      "@type": "Person",
+      "name": "Benjamin Asch",
+      "alternateName": "Ben Asch",
+      "alternateName_2": "Benjamin Asch Ruiz",
+      "alternateName_3": "Benjamin Asch-Ruiz"
+      "url": "https://benjaminasch.com",
+      "affiliation": {
+        "@type": "CollegeOrUniversity",
+        "name": "ETH Zürich"
+      }
+    }
+    </script>
+  
+</body>
+</html>
