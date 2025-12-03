@@ -125,16 +125,19 @@ DEFAULT_VENUES = [
     {
         "code": "ACMTQC",
         "name": "ACM Transactions on Quantum Computing",
-        "source_ids": ["https://openalex.org/S4210170170"],
+        "search": "Symposium on Discrete Algorithms",
         "require_keywords": False,
     },
     # Generic TCS venues – we require quantum keywords to avoid non‑quantum theory papers.
     {
         "code": "FOCS",
         "name": "IEEE Symposium on Foundations of Computer Science (FOCS)",
-        "source_ids": ["https://openalex.org/S4210175768"],
+        # Let OpenAlex /sources?search=... return *all* FOCS-related sources
+        # (different editions / series names), and then filter them by display_name.
+        "search": "Annual Symposium on Foundations of Computer Science",
         "require_keywords": True,
     },
+
     # {
     #     "code": "STOC",
     #     "name": "ACM Symposium on Theory of Computing (STOC)",
