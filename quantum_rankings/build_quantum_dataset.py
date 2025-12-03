@@ -71,15 +71,15 @@ VENUE_PATTERNS: List[Tuple[str, str]] = [
     ('qip', 'QIP'),
     ('theory of quantum computation, communication and cryptography', 'TQC'),
     ('tqc', 'TQC'),
-    ('quantum cryptography', 'QCrypt'),
-    ('qcrypt', 'QCrypt'),
-    ('npj quantum information', 'NPJ_QI'),
-    ('prx quantum', 'PRX_Q'),
-    ('quantum journal', 'Quantum'),
-    ('quantum (open journal)', 'Quantum'),
+    ('quantum cryptography', 'QCRYPT'),
+    ('qcrypt', 'QCRYPT'),
+    ('npj quantum information', 'NPJQI'),
+    ('prx quantum', 'PRXQ'),
+    ('quantum journal', 'QUANTUM'),
+    ('quantum (open journal)', 'QUANTUM'),
     ('quantum information & computation', 'QIC'),
     ('quantum information and computation', 'QIC'),
-    ('acm transactions on quantum computing', 'ACM_TQC'),
+    ('acm transactions on quantum computing', 'ACMTQC'),
     ('ieee symposium on foundations of computer science', 'FOCS'),
     ('foundations of computer science', 'FOCS'),
     ('acm symposium on theory of computing', 'STOC'),
@@ -93,12 +93,12 @@ VENUE_PATTERNS: List[Tuple[str, str]] = [
 VENUE_NAMES: Dict[str, str] = {
     'QIP': 'Quantum Information Processing (journal/conference)',
     'TQC': 'Theory of Quantum Computation, Communication and Cryptography (TQC)',
-    'QCrypt': 'Conference on Quantum Cryptography (QCrypt)',
-    'NPJ_QI': 'npj Quantum Information',
-    'PRX_Q': 'PRX Quantum',
-    'Quantum': 'Quantum (open journal)',
+    'QCRYPT': 'Conference on Quantum Cryptography (QCrypt)',
+    'NPJQI': 'npj Quantum Information',
+    'PRXQ': 'PRX Quantum',
+    'QUANTUM': 'Quantum (open journal)',
     'QIC': 'Quantum Information and Computation',
-    'ACM_TQC': 'ACM Transactions on Quantum Computing',
+    'ACMTQC': 'ACM Transactions on Quantum Computing',
     'FOCS': 'IEEE Symposium on Foundations of Computer Science (FOCS)',
     'STOC': 'ACM Symposium on Theory of Computing (STOC)',
     'SODA': 'ACM-SIAM Symposium on Discrete Algorithms (SODA)',
@@ -149,9 +149,18 @@ def fetch_json(url: str, *, sleep: float = 0.0) -> dict:
 
 
 def find_author_id(name: str) -> Optional[str]:
-    """Look up an author in OpenAlex and return their author ID (without the prefix)."""
+    """Look up an author in OpenAlex and return their author ID (without the prefix).
+
+    When searching by name, OpenAlex may return multiple results.  This helper will
+    attempt to find an exact (case‑insensitive) match on the author's display name
+    or one of their alternate display names.  If no exact match is found,
+    the candidate with the largest works_count is chosen under the assumption
+    that prolific authors are more likely to be the target individual.  If the
+    API call fails or no candidates are returned, None is returned.
+    """
+    # Request multiple candidates to improve matching accuracy
     query = urllib.parse.quote(name)
-    url = f"https://api.openalex.org/authors?search={query}&per-page=1"
+    url = f"https://api.openalex.org/authors?search={query}&per-page=5"
     try:
         data = fetch_json(url)
     except Exception:
@@ -159,9 +168,23 @@ def find_author_id(name: str) -> Optional[str]:
     results = data.get('results', [])
     if not results:
         return None
-    author = results[0]
-    # The `id` looks like `https://openalex.org/A1234567890`; strip the prefix
-    author_id = author['id'].split('/')[-1]
+    # Try to find an exact case-insensitive match against display_name or any alternate
+    name_lower = name.lower()
+    for author in results:
+        display = author.get('display_name', '') or ''
+        alternatives = author.get('display_name_alternatives') or []
+        if display.lower() == name_lower:
+            best = author
+            break
+        # Check each alternative name
+        if any(name_lower == alt.lower() for alt in alternatives):
+            best = author
+            break
+    else:
+        # No exact match; pick the candidate with the highest works_count
+        best = max(results, key=lambda a: a.get('works_count', 0))
+    # Extract the OpenAlex ID without prefix
+    author_id = best['id'].split('/')[-1]
     return author_id
 
 

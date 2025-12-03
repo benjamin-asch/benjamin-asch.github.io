@@ -201,41 +201,43 @@ function updateRanking() {
     if (!selectedRegions.has(instInfo.region)) return;
     let pubCount = 0;
     let authorsList = [];
-    let researcherCount = 0;
-    // Filter authors (researchers) of this institution
+    let activeResearchers = 0;
+    // Iterate through authors belonging to this institution
     data.authors.forEach(author => {
-      if (author.institution === instKey) {
-        researcherCount++;
-        let authorPubCount = 0;
-        const pubDetails = [];
-        author.publications.forEach(pub => {
-          // Only consider publications within the year range and selected venues
-          if (pub.year < startYear || pub.year > endYear || !selectedVenues.has(pub.venue)) {
-            return;
-          }
-          // For FOCS, STOC and SODA venues, include the publication only if its
-          // title contains a quantum keyword.  Titles are stored on each
-          // publication object; fallback to empty string if missing.
-          const venue = pub.venue;
-          const title = (pub.title || '').toLowerCase();
-          if ((venue === 'FOCS' || venue === 'STOC' || venue === 'SODA')) {
-            // Only apply keyword filtering when a title is provided.  Many
-            // entries in the dataset omit titles; in those cases we assume
-            // the paper is quantum‐related and include it in the count.  If
-            // a title is present, require that it contain one of the
-            // quantum keywords.
-            if (title) {
-              const hasKeyword = quantumKeywords.some(kw => title.includes(kw.toLowerCase()));
-              if (!hasKeyword) {
-                return; // skip non‑quantum theory paper
-              }
+      if (author.institution !== instKey) return;
+      let authorPubCount = 0;
+      const pubDetails = [];
+      // Count the author's publications that match the current filters
+      author.publications.forEach(pub => {
+        // Only consider publications within the year range and selected venues
+        if (pub.year < startYear || pub.year > endYear || !selectedVenues.has(pub.venue)) {
+          return;
+        }
+        // For FOCS, STOC and SODA venues, include the publication only if its title
+        // contains a quantum keyword. Titles are stored on each publication object;
+        // fallback to empty string if missing.
+        const venue = pub.venue;
+        const title = (pub.title || '').toLowerCase();
+        if (venue === 'FOCS' || venue === 'STOC' || venue === 'SODA') {
+          // Only apply keyword filtering when a title is provided. Many entries in the
+          // dataset omit titles; in those cases we assume the paper is quantum‑related
+          // and include it in the count. If a title is present, require that it contain
+          // one of the quantum keywords.
+          if (title) {
+            const hasKeyword = quantumKeywords.some(kw => title.includes(kw.toLowerCase()));
+            if (!hasKeyword) {
+              return; // skip non‑quantum theory paper
             }
           }
-          // Count publication
-          pubCount++;
-          authorPubCount++;
-          pubDetails.push(`${pub.year} – ${pub.venue}`);
-        });
+        }
+        // Count publication
+        pubCount++;
+        authorPubCount++;
+        pubDetails.push(`${pub.year} – ${pub.venue}`);
+      });
+      // Only include authors with at least one relevant publication in this list
+      if (authorPubCount > 0) {
+        activeResearchers++;
         authorsList.push({
           name: author.name,
           count: authorPubCount,
@@ -243,14 +245,15 @@ function updateRanking() {
         });
       }
     });
-    if (researcherCount === 0) return;
-    const ratio = researcherCount > 0 ? pubCount / researcherCount : 0;
+    // If no researchers have publications under the current filters, skip this institution
+    if (activeResearchers === 0) return;
+    const ratio = pubCount / activeResearchers;
     rankings.push({
       institution: instKey,
       name: instInfo.name,
       region: instInfo.region,
       publications: pubCount,
-      researcherCount: researcherCount,
+      researcherCount: activeResearchers,
       ratio: ratio,
       authors: authorsList
     });

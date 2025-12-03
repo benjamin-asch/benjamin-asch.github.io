@@ -65,34 +65,40 @@ import requests
 # ``source_ids`` empty and provide a search term; the builder will collect
 # all matching sources (one per conference edition) to ensure full coverage.
 DEFAULT_VENUES = [
+    
+    # {
+    #     # QIP spans both a journal and an annual conference.  Rather than specifying
+    #     # a single source id for the journal (which omits conference editions),
+    #     # we search for all sources whose display name contains the phrase
+    #     # "Quantum Information Processing".  This will capture the Springer
+    #     # journal and any conference series entries.  No keyword filtering is
+    #     # applied because the venue itself is quantum‑specific.
+    #     "code": "QIP",
+    #     "name": "Quantum Information Processing (journal/conference)",
+    #     "search": "Quantum Information Processing",
+    #     "require_keywords": False,
+    # },
     {
-        # There is no unified OpenAlex source for the QIP conference series.  We
-        # use the journal "Quantum Information Processing" (Springer) as a proxy
-        # because OpenAlex indexes the journal but not the conference.
-        "code": "QIP",
-        "name": "Quantum Information Processing (journal)",
-        "source_ids": ["https://openalex.org/S92819544"],
-        "require_keywords": False,
-    },
-    {
-        # TQC has minimal coverage in OpenAlex; we explicitly list the known
-        # conference series ID.  Users can add more IDs here when new
-        # editions appear.
+        # TQC entries may appear as separate sources per edition.  Use a search
+        # string rather than a single id to gather all conference sources.  No
+        # keyword filtering is necessary as this venue is explicitly quantum.
         "code": "TQC",
         "name": "Theory of Quantum Computation, Communication and Cryptography (TQC)",
-        "source_ids": ["https://openalex.org/S4306418103"],
+        "search": "Conference on Theory of Quantum Computation, Communication and Cryptography",
         "require_keywords": False,
     },
+    # {
+    #     # QCrypt may be indexed sparsely.  Provide a search string so all
+    #     # conference editions are discovered.  This venue focuses on quantum
+    #     # cryptography and thus does not require keyword filtering.
+    #     "code": "QCRYPT",
+    #     "name": "Conference on Quantum Cryptography (QCrypt)",
+    #     "search": "Quantum Cryptography",
+    #     "require_keywords": False,
+    # },
     {
-        # QCrypt is sparsely indexed and currently omitted.  Provide an empty
-        # ``source_ids`` list so the builder will skip this venue unless
-        # populated later.
-        "code": "QCRYPT",
-        "name": "Conference on Quantum Cryptography (QCrypt)",
-        "source_ids": [],
-        "require_keywords": False,
-    },
-    {
+        # Journals and magazines: supply explicit source ids.  Codes have been
+        # normalised to match the frontend (no underscores).
         "code": "NPJQI",
         "name": "npj Quantum Information",
         "source_ids": ["https://openalex.org/S2738600312"],
@@ -122,96 +128,400 @@ DEFAULT_VENUES = [
         "source_ids": ["https://openalex.org/S4210170170"],
         "require_keywords": False,
     },
-    # Generic TCS venues – we require quantum keywords to avoid non‑quantum theory.
+    # Generic TCS venues – we require quantum keywords to avoid non‑quantum theory papers.
     {
         "code": "FOCS",
         "name": "IEEE Symposium on Foundations of Computer Science (FOCS)",
-        "search": "Symposium on Foundations of Computer Science",
+        "source_ids": ["https://openalex.org/S4210175768"],
         "require_keywords": True,
     },
-    {
-        "code": "STOC",
-        "name": "ACM Symposium on Theory of Computing (STOC)",
-        "search": "Symposium on Theory of Computing",
-        "require_keywords": True,
-    },
+    # {
+    #     "code": "STOC",
+    #     "name": "ACM Symposium on Theory of Computing (STOC)",
+    #     "search": "Symposium on Theory of Computing",
+    #     "require_keywords": True,
+    # },
     {
         "code": "SODA",
-        "name": "ACM‑SIAM Symposium on Discrete Algorithms (SODA)",
-        "search": "Symposium on Discrete Algorithms",
+        "name": "ACM-SIAM Symposium on Discrete Algorithms (SODA)",
+        "source_ids": ["https://openalex.org/S4363608728"],
         "require_keywords": True,
     },
+    {
+        "code": "NATCOMM",
+        "name": "Nature Communications",
+        "source_ids": ["https://openalex.org/S64187185"],
+        "require_keywords": True
+    },
+    {
+        "code": "NATPHYS",
+        "name": "Nature Physics",
+        "source_ids": ["https://openalex.org/S156274416"],
+        "require_keywords": True
+    },
+    {
+        "code": "NATURE",
+        "name": "Nature",
+        "source_ids": ["https://openalex.org/S137773608"],
+        "require_keywords": True
+    },
+    {
+        "code": "SCIENCE",
+        "name": "Science",
+        "source_ids": ["https://openalex.org/S3880285"],
+        "require_keywords": True
+    },
+    {
+        "code": "PRL",
+        "name": "Physical Review Letters",
+        "source_ids": ["https://openalex.org/S24807848"],
+        "require_keywords": True
+    },
+    {
+        "code": "PRA",
+        "name": "Physical Review A",
+        "source_ids": ["https://openalex.org/S164566984"],
+        "require_keywords": True
+    },
+    {
+        "code": "PRX",
+        "name": "Physical Review X",
+        "source_ids": ["https://openalex.org/S137042341"],
+        "require_keywords": True
+    },
+    {
+        "code": "ISIT",
+        "name": "IEEE Transactions on Information Theory",
+        "source_ids": ["https://openalex.org/S4502562"],
+        "require_keywords": True
+    }
 ]
 
 
 # A small set of keywords to treat a generic‑venue paper as quantum‑related.
 QUANTUM_KEYWORDS = [
+    # Core identifiers
     "quantum",
     "qubit",
     "qudit",
-    "qaoa",
+    "qutrit",
+
+    # Algorithms & protocols
+    "quantum algorithm",
+    "quantum circuit",
+    "quantum optimization",
+    "variational quantum",
     "vqe",
+    "qaoa",
+    "quantum walk",
     "boson sampling",
-    "hamiltonian",
-    "qkd",
-    "quantum key distribution",
+    "hamiltonian simulation",
+    "quantum simulation",
+
+    # Information theory & cryptography
     "entanglement",
     "bell inequality",
+    "nonlocality",
+    "quantum key distribution",
+    "qkd",
+    "device-independent",
+    "measurement-based quantum",
+    "mbqc",
+
+    # Complexity theory
     "quantum advantage",
     "quantum supremacy",
+    "bqp",
+    "qma",
+    "qmma",
+    "qcma",
+    "qszk",
+    "boson-sampling",
+    "classical simulation of quantum",
+
+    # Error correction & noise
+    "quantum error correction",
+    "qec",
+    "surface code",
+    "stabilizer code",
+    "fault tolerant",
+    "fault-tolerant",
+
+    # Quantum channels / info theory
+    "quantum channel",
+    "quantum capacity",
+    "quantum information",
+    "quantum entropy",
+    "coherent information",
+    "quantum mutual information",
+
+    # Quantum cryptography & randomness
+    "quantum cryptography",
+    "post-quantum",
+    "quantum randomness",
+    "randomness amplification",
+    "quantum de finetti",
+
+    # ➤ Interactive proofs / entangled provers / nonlocal games
+    "mip",
+    "mip*",
+    "nonlocal game",
+    "nonlocal games",
+    "entangled game",
+    "entangled games",
+    "xor game",
+    "xor games",
+    "interactive proof",
+    "interactive proofs",
+    "multiprover",
+    "multi-prover",
+    "rigidity",
+    "rigidity theorem",
+    "self-testing",
+    "self testing",
+    "quantum pcp",
+    "pcp for entangled",
+    "quantum low-degree test",
+    "low-degree test",
+    "low degree test",
+    "classical verification of quantum",
+    "verifiable quantum",
 ]
+
 
 
 # Map OpenAlex country codes (2‑letter) to coarse regions.
 COUNTRY_TO_REGION = {
+    # -----------------------
     # North America
+    # -----------------------
     "US": "North America",
     "CA": "North America",
     "MX": "North America",
+    "GL": "North America",  # Greenland (geographically North America)
 
-    # Europe (non‑exhaustive)
-    "CH": "Europe",
-    "DE": "Europe",
-    "FR": "Europe",
-    "UK": "Europe",
-    "GB": "Europe",
-    "NL": "Europe",
-    "BE": "Europe",
-    "IT": "Europe",
-    "ES": "Europe",
-    "PT": "Europe",
-    "SE": "Europe",
-    "NO": "Europe",
-    "DK": "Europe",
-    "FI": "Europe",
-    "PL": "Europe",
-    "CZ": "Europe",
+    # -----------------------
+    # Europe
+    # -----------------------
+    "AL": "Europe",
+    "AD": "Europe",
+    "AM": "Europe",  # Caucasus treated as Europe in scientometrics
     "AT": "Europe",
+    "AZ": "Europe",  # same rationale as AM/GE
+    "BA": "Europe",
+    "BE": "Europe",
+    "BG": "Europe",
+    "BY": "Europe",
+    "CH": "Europe",
+    "CY": "Europe",  # EU member, treated as Europe
+    "CZ": "Europe",
+    "DE": "Europe",
+    "DK": "Europe",
+    "EE": "Europe",
+    "ES": "Europe",
+    "FI": "Europe",
+    "FR": "Europe",
+    "GB": "Europe",
+    "GE": "Europe",
+    "GR": "Europe",
+    "HR": "Europe",
     "HU": "Europe",
     "IE": "Europe",
-    "GR": "Europe",
+    "IS": "Europe",
+    "IT": "Europe",
+    "KZ": "Asia",  # classified as Asia in scientometrics despite Ural region
+    "LI": "Europe",
+    "LT": "Europe",
+    "LU": "Europe",
+    "LV": "Europe",
+    "MC": "Europe",
+    "MD": "Europe",
+    "ME": "Europe",
+    "MK": "Europe",
+    "MT": "Europe",
+    "NL": "Europe",
+    "NO": "Europe",
+    "PL": "Europe",
+    "PT": "Europe",
+    "RO": "Europe",
+    "RS": "Europe",
+    "RU": "Europe",  # scientifically treated as Europe
+    "SE": "Europe",
+    "SI": "Europe",
+    "SK": "Europe",
+    "SM": "Europe",
+    "UA": "Europe",
+    "VA": "Europe",  # Vatican
+    "UK": "Europe",  # alias
 
-    # Asia (non‑exhaustive)
+    # -----------------------
+    # Asia
+    # -----------------------
+    "AE": "Asia",
+    "AF": "Asia",
+    "AZ": "Asia",  # some datasets place AZ in both; we treat as Europe above
+    "BH": "Asia",
+    "BD": "Asia",
+    "BN": "Asia",
+    "BT": "Asia",
     "CN": "Asia",
-    "JP": "Asia",
-    "KR": "Asia",
-    "SG": "Asia",
+    "EG": "Africa",  # correct classification
+    "HK": "Asia",
+    "ID": "Asia",
     "IL": "Asia",
     "IN": "Asia",
+    "IQ": "Asia",
+    "IR": "Asia",
+    "JO": "Asia",
+    "JP": "Asia",
+    "KG": "Asia",
+    "KH": "Asia",
+    "KP": "Asia",
+    "KR": "Asia",
+    "KW": "Asia",
+    "KZ": "Asia",
+    "LA": "Asia",
+    "LB": "Asia",
+    "LK": "Asia",
+    "MM": "Asia",
+    "MN": "Asia",
+    "MO": "Asia",
+    "MY": "Asia",
+    "NP": "Asia",
+    "OM": "Asia",
+    "PH": "Asia",
+    "PK": "Asia",
+    "PS": "Asia",
+    "QA": "Asia",
+    "SA": "Asia",
+    "SG": "Asia",
+    "SY": "Asia",
+    "TH": "Asia",
+    "TJ": "Asia",
+    "TL": "Asia",
+    "TM": "Asia",
+    "TR": "Europe",  # scientometrics + CSRankings treat it as Europe
     "TW": "Asia",
+    "UZ": "Asia",
+    "VN": "Asia",
+    "YE": "Asia",
 
+    # -----------------------
     # Oceania
+    # -----------------------
     "AU": "Oceania",
     "NZ": "Oceania",
+    "FJ": "Oceania",
+    "PG": "Oceania",
+    "SB": "Oceania",
+    "TO": "Oceania",
+    "VU": "Oceania",
+    "WS": "Oceania",
+    "NR": "Oceania",
+    "KI": "Oceania",
+    "TV": "Oceania",
+    "FM": "Oceania",
+    "MH": "Oceania",
+    "PW": "Oceania",
 
+    # -----------------------
     # South America
-    "BR": "South America",
+    # -----------------------
     "AR": "South America",
+    "BO": "South America",
+    "BR": "South America",
     "CL": "South America",
+    "CO": "South America",
+    "EC": "South America",
+    "GY": "South America",
+    "PE": "South America",
+    "PY": "South America",
+    "SR": "South America",
+    "UY": "South America",
+    "VE": "South America",
 
+    # -----------------------
+    # Central America & Caribbean
+    # -----------------------
+    "BZ": "North America",
+    "CR": "North America",
+    "GT": "North America",
+    "HN": "North America",
+    "NI": "North America",
+    "PA": "North America",
+    "SV": "North America",
+    "CU": "North America",
+    "DO": "North America",
+    "HT": "North America",
+    "JM": "North America",
+    "TT": "North America",
+    "BB": "North America",
+    "BS": "North America",
+
+    # -----------------------
+    # Middle East (subset of Asia, but useful if you ever add subregions)
+    # -----------------------
+    # Already included via Asia classification above.
+
+    # -----------------------
     # Africa
+    # -----------------------
+    "DZ": "Africa",
+    "AO": "Africa",
+    "BF": "Africa",
+    "BI": "Africa",
+    "BJ": "Africa",
+    "BW": "Africa",
+    "CD": "Africa",
+    "CF": "Africa",
+    "CG": "Africa",
+    "CI": "Africa",
+    "CM": "Africa",
+    "CV": "Africa",
+    "DJ": "Africa",
+    "DZ": "Africa",
+    "EG": "Africa",
+    "ER": "Africa",
+    "ET": "Africa",
+    "GA": "Africa",
+    "GH": "Africa",
+    "GM": "Africa",
+    "GN": "Africa",
+    "GQ": "Africa",
+    "KE": "Africa",
+    "KM": "Africa",
+    "LR": "Africa",
+    "LS": "Africa",
+    "LY": "Africa",
+    "MA": "Africa",
+    "MG": "Africa",
+    "ML": "Africa",
+    "MR": "Africa",
+    "MU": "Africa",
+    "MW": "Africa",
+    "MZ": "Africa",
+    "NA": "Africa",
+    "NE": "Africa",
+    "NG": "Africa",
+    "RW": "Africa",
+    "SC": "Africa",
+    "SD": "Africa",
+    "SL": "Africa",
+    "SN": "Africa",
+    "SO": "Africa",
+    "SS": "Africa",
+    "ST": "Africa",
+    "SZ": "Africa",
+    "TD": "Africa",
+    "TG": "Africa",
+    "TN": "Africa",
+    "TZ": "Africa",
+    "UG": "Africa",
     "ZA": "Africa",
+    "ZM": "Africa",
+    "ZW": "Africa",
 }
+
 
 
 def region_from_country_code(code: str) -> str:
@@ -280,37 +590,92 @@ def find_source_ids_for_venue(search: str, mailto: str = None, max_candidates: i
 # (Definition removed; a unified implementation of find_source_id_for_venue appears earlier.)
 
 
-def iter_works_for_source(source_id: str, start_year: int, end_year: int, mailto: str = None,
-                          per_page: int = 200, max_pages: int = None, sleep: float = 0.2):
+def iter_works_for_source(
+    source_id: str,
+    start_year: int,
+    end_year: int,
+    mailto: str = None,
+    per_page: int = 200,
+    max_pages: int = None,
+    sleep: float = 0.2,
+    require_keywords: bool = False,
+):
     """
-    Iterate through all works for a given source over [start_year, end_year]
+    Iterate through works for a given source over [start_year, end_year]
     using the OpenAlex /works endpoint with primary_location.source.id filter.
 
-    Yields each work JSON object.
+    If require_keywords is True, additionally restrict the query at the API
+    level using a title.search OR-filter built from QUANTUM_KEYWORDS. This
+    keeps the result set small for very large venues (e.g. Nature, PRL,
+    FOCS/STOC/SODA) and avoids hitting the 10k pagination limit, while still
+    applying a second-stage is_quantum_paper() filter locally.
     """
-    # We can filter by from_publication_date / to_publication_date; year‑only
-    # filters are also supported.  We'll use dates for safety.
     from_date = f"{start_year}-01-01"
     to_date = f"{end_year}-12-31"
 
+    # Enforce OpenAlex's 10k result limit: page*per_page <= 10_000.
+    # With per_page=200 this means at most 50 pages. For keyworded venues
+    # we cap implicitly at 50 unless the user passes a smaller max_pages.
+    effective_max_pages = max_pages
+    if effective_max_pages is None and require_keywords:
+        effective_max_pages = 50
+
+    # Precompute the OR-list for title.search if needed
+    title_filter_val = None
+    if require_keywords:
+        title_terms = {
+            kw.replace(",", " ").strip()
+            for kw in QUANTUM_KEYWORDS
+            if kw and len(kw.strip()) >= 3
+        }
+        if title_terms:
+            title_filter_val = "|".join(sorted(title_terms))
+
     page = 1
     while True:
+        # Stop if we've hit the configured cap
+        if effective_max_pages is not None and page > effective_max_pages:
+            break
+
+        base_filter = (
+            f"primary_location.source.id:{source_id},"
+            f"from_publication_date:{from_date},"
+            f"to_publication_date:{to_date}"
+        )
+        if title_filter_val:
+            filter_str = base_filter + f",title.search:{title_filter_val}"
+        else:
+            filter_str = base_filter
+
         params = {
-            "filter": f"primary_location.source.id:{source_id},"
-                      f"from_publication_date:{from_date},"
-                      f"to_publication_date:{to_date}",
+            "filter": filter_str,
             "page": page,
             "per-page": per_page,
         }
-        data = openalex_get("/works", params, mailto=mailto, sleep=sleep)
+
+        try:
+            data = openalex_get("/works", params, mailto=mailto, sleep=sleep)
+        except requests.HTTPError as e:
+            # If we somehow still hit a 400 (e.g. OpenAlex enforcing 10k cap),
+            # stop paging this source instead of aborting the whole run.
+            if e.response is not None and e.response.status_code == 400:
+                print(
+                    f"[warning] HTTP 400 while paging source {source_id} "
+                    f"(page={page}); stopping further pages for this source."
+                )
+                break
+            raise
+
         results = data.get("results", [])
         if not results:
             break
+
         for w in results:
             yield w
+
         page += 1
-        if max_pages is not None and page > max_pages:
-            break
+
+
 
 
 # ------------------------- Core logic -------------------------------------
@@ -396,6 +761,7 @@ def build_dataset_from_venues(
         venues_out.append({"code": code, "name": name})
 
         # Harvest works from each source id
+                # Harvest works from each source id
         for source_id in source_ids:
             print(f"[venue] {code}: harvesting works from source {source_id}")
             for work in iter_works_for_source(
@@ -404,7 +770,9 @@ def build_dataset_from_venues(
                 end_year,
                 mailto=mailto,
                 max_pages=max_pages_per_source,
+                require_keywords=require_keywords,
             ):
+
                 work_id = work.get("id")
                 # Deduplicate across sources by work id
                 if work_id and work_id in seen_work_ids:
