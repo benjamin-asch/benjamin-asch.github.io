@@ -100,8 +100,8 @@ function initialiseUI() {
     const label = document.createElement('label');
     label.htmlFor = checkbox.id;
     label.textContent = venue.code;
-    venueContainer.appendChild(checkbox);
     venueContainer.appendChild(label);
+    venueContainer.appendChild(checkbox);
     venueContainer.appendChild(document.createTextNode(' '));
   });
 
