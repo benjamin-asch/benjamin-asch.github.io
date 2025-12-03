@@ -589,7 +589,6 @@ def find_source_ids_for_venue(search: str, mailto: str = None, max_candidates: i
 
 # (Definition removed; a unified implementation of find_source_id_for_venue appears earlier.)
 
-
 def iter_works_for_source(
     source_id: str,
     start_year: int,
@@ -602,80 +601,109 @@ def iter_works_for_source(
 ):
     """
     Iterate through works for a given source over [start_year, end_year]
-    using the OpenAlex /works endpoint with primary_location.source.id filter.
+    using the OpenAlex /works endpoint.
 
-    If require_keywords is True, additionally restrict the query at the API
-    level using a title.search OR-filter built from QUANTUM_KEYWORDS. This
-    keeps the result set small for very large venues (e.g. Nature, PRL,
-    FOCS/STOC/SODA) and avoids hitting the 10k pagination limit, while still
-    applying a second-stage is_quantum_paper() filter locally.
+    If require_keywords is True, we:
+      - push a title.search OR-filter built from QUANTUM_KEYWORDS into the API
+      - and, if the result set is still too large (>10k), recursively split the
+        year range into smaller intervals until each query falls below the
+        OpenAlex 10k limit.
+
+    This avoids 400 errors from requesting page > 50 while keeping coverage
+    essentially complete for large venues like PRL / Nature Communications.
     """
-    from_date = f"{start_year}-01-01"
-    to_date = f"{end_year}-12-31"
 
-    # Enforce OpenAlex's 10k result limit: page*per_page <= 10_000.
-    # With per_page=200 this means at most 50 pages. For keyworded venues
-    # we cap implicitly at 50 unless the user passes a smaller max_pages.
-    effective_max_pages = max_pages
-    if effective_max_pages is None and require_keywords:
-        effective_max_pages = 50
-
-    # Precompute the OR-list for title.search if needed
+    # Build the OR-list for title.search once
     title_filter_val = None
     if require_keywords:
+        # Clean / deduplicate keywords for title.search.
         title_terms = {
             kw.replace(",", " ").strip()
             for kw in QUANTUM_KEYWORDS
             if kw and len(kw.strip()) >= 3
         }
         if title_terms:
+            # Example: "quantum|qubit|entanglement|qkd|..."
             title_filter_val = "|".join(sorted(title_terms))
 
-    page = 1
-    while True:
-        # Stop if we've hit the configured cap
-        if effective_max_pages is not None and page > effective_max_pages:
-            break
+    # Effective page limit imposed by OpenAlex (10k results cap).
+    # For per_page=200 this is 50 pages.
+    max_pages_by_api = 10000 // per_page if per_page > 0 else 50
+    if max_pages is not None:
+        max_pages_by_api = min(max_pages_by_api, max_pages)
 
-        base_filter = (
+    def make_filter_str(y0: int, y1: int) -> str:
+        from_date = f"{y0}-01-01"
+        to_date = f"{y1}-12-31"
+        base = (
             f"primary_location.source.id:{source_id},"
             f"from_publication_date:{from_date},"
             f"to_publication_date:{to_date}"
         )
         if title_filter_val:
-            filter_str = base_filter + f",title.search:{title_filter_val}"
-        else:
-            filter_str = base_filter
+            return base + f",title.search:{title_filter_val}"
+        return base
 
+    def _iter_year_range(y0: int, y1: int):
+        # First, probe page 1 to see how big the result set is.
+        filter_str = make_filter_str(y0, y1)
         params = {
             "filter": filter_str,
-            "page": page,
+            "page": 1,
             "per-page": per_page,
         }
 
-        try:
-            data = openalex_get("/works", params, mailto=mailto, sleep=sleep)
-        except requests.HTTPError as e:
-            # If we somehow still hit a 400 (e.g. OpenAlex enforcing 10k cap),
-            # stop paging this source instead of aborting the whole run.
-            if e.response is not None and e.response.status_code == 400:
-                print(
-                    f"[warning] HTTP 400 while paging source {source_id} "
-                    f"(page={page}); stopping further pages for this source."
-                )
-                break
-            raise
-
+        data = openalex_get("/works", params, mailto=mailto, sleep=sleep)
+        meta = data.get("meta", {}) or {}
+        total = meta.get("count")
         results = data.get("results", [])
-        if not results:
-            break
 
-        for w in results:
-            yield w
+        # If the range is too large (>10k) and spans more than one year,
+        # split it into two subranges and recurse.
+        if isinstance(total, int) and total > 10000 and y0 < y1:
+            mid = (y0 + y1) // 2
+            # Left half [y0, mid]
+            yield from _iter_year_range(y0, mid)
+            # Right half [mid+1, y1]
+            yield from _iter_year_range(mid + 1, y1)
+            return
 
-        page += 1
+        # Otherwise, page through this range normally (respecting the 10k cap).
+        page = 1
+        while True:
+            if page == 1:
+                current_results = results
+            else:
+                if max_pages_by_api is not None and page > max_pages_by_api:
+                    break
+                params = {
+                    "filter": filter_str,
+                    "page": page,
+                    "per-page": per_page,
+                }
+                data = openalex_get("/works", params, mailto=mailto, sleep=sleep)
+                current_results = data.get("results", [])
 
+            if not current_results:
+                break
 
+            for w in current_results:
+                yield w
+
+            page += 1
+            if max_pages_by_api is not None and page > max_pages_by_api:
+                # If we ever hit this for a single-year range, it means
+                # even the filtered query has >10k results. This is extremely
+                # unlikely for genuine quantum subsets, but we log just in case.
+                if y0 == y1 and isinstance(total, int) and total > 10000:
+                    print(
+                        f"[warning] Hit 10k cap for source {source_id} in year {y0} "
+                        f"(total={total}); some works may be omitted."
+                    )
+                break
+
+    # Kick off recursion on the full year range.
+    yield from _iter_year_range(start_year, end_year)
 
 
 # ------------------------- Core logic -------------------------------------
@@ -712,7 +740,10 @@ def build_dataset_from_venues(
     mailto: str = None,
     max_pages_per_source: int = None,
     min_papers_per_author: int = 1,
+    min_papers_per_institution: int = 0,
+    max_institutions: int = None,
 ) -> Dict[str, Any]:
+
     """
     Main driver: for each venue configuration, resolve its source IDs, iterate
     through works, filter to quantum papers, and aggregate authors + institutions.
@@ -834,6 +865,48 @@ def build_dataset_from_venues(
     }
     print(f"[summary] Institutions found: {len(institutions)}")
     print(f"[summary] Author+institution pairs (after min_papers filter): {len(author_inst)}")
+
+        # Aggregate total publications per institution
+    from collections import defaultdict
+    inst_total_pubs: Dict[str, int] = defaultdict(int)
+    for (author_id, inst_id), info in author_inst.items():
+        inst_total_pubs[inst_id] += len(info["publications"])
+
+    # Apply minimum total pubs per institution if requested
+    keep_insts = set(inst_total_pubs.keys())
+    if min_papers_per_institution > 0:
+        keep_insts = {
+            inst_id
+            for inst_id, count in inst_total_pubs.items()
+            if count >= min_papers_per_institution
+        }
+
+    # Optionally cap to top-K institutions by total pubs
+    if max_institutions is not None and len(keep_insts) > max_institutions:
+        # sort institutions by total pubs (descending) and keep the top-K
+        sorted_insts = sorted(
+            keep_insts,
+            key=lambda inst_id: inst_total_pubs.get(inst_id, 0),
+            reverse=True,
+        )
+        keep_insts = set(sorted_insts[:max_institutions])
+
+    # Now drop authors and institutions that are not in keep_insts
+    author_inst = {
+        key: val
+        for key, val in author_inst.items()
+        if key[1] in keep_insts
+    }
+    institutions = {
+        inst_id: info
+        for inst_id, info in institutions.items()
+        if inst_id in keep_insts
+    }
+
+    print(f"[summary] Institutions after institution-level filters: {len(institutions)}")
+    print(f"[summary] Author+institution pairs after institution-level filters: {len(author_inst)}")
+
+
     # Convert raw institution ids to sequential inst0, inst1, ... keys
     inst_id_to_key: Dict[str, str] = {}
     institutions_out: Dict[str, Dict[str, Any]] = {}
@@ -887,16 +960,28 @@ def parse_args() -> argparse.Namespace:
         help="Contact email to pass to OpenAlex (recommended for heavy use).",
     )
     p.add_argument(
-        "--max-pages-per-source",
-        type=int,
-        default=None,
-        help="Optional cap on number of pages per venue (for testing).",
-    )
-    p.add_argument(
         "--min-papers-per-author",
         type=int,
         default=1,
         help="Minimum number of quantum papers required for an author+institution pair to be included.",
+    )
+    p.add_argument(
+        "--min-papers-per-institution",
+        type=int,
+        default=3,
+        help="Minimum total quantum papers required for an institution to be included.",
+    )
+    p.add_argument(
+        "--max-institutions",
+        type=int,
+        default=1000,
+        help="Optional cap on the number of institutions to keep (keeps the most prolific ones).",
+    )
+    p.add_argument(
+        "--max-pages-per-source",
+        type=int,
+        default=None,
+        help="Optional cap on number of pages per venue (for testing).",
     )
     p.add_argument(
         "--output-json",
@@ -923,6 +1008,8 @@ def main():
         mailto=args.mailto,
         max_pages_per_source=args.max_pages_per_source,
         min_papers_per_author=args.min_papers_per_author,
+        min_papers_per_institution=args.min_papers_per_institution,
+        max_institutions=args.max_institutions,
     )
 
     # Write JSON
