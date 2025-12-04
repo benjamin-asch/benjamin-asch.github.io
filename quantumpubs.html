@@ -267,12 +267,9 @@
       const icon = toggle ? toggle.querySelector('.theme-icon') : null;
       const label = toggle ? toggle.querySelector('.theme-label') : null;
 
-      // Load saved preference or system preference
       const stored = window.localStorage.getItem('qp-theme');
-      const prefersDark = window.matchMedia &&
-        window.matchMedia('(prefers-color-scheme: dark)').matches;
 
-      if (stored === 'dark' || (!stored && prefersDark)) {
+      if (stored === 'dark') {
         body.classList.remove('theme-light');
         body.classList.add('theme-dark');
       }
