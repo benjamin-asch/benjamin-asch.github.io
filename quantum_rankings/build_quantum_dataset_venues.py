@@ -225,6 +225,7 @@ QUANTUM_KEYWORDS = [
     "quantum circuit",
     "quantum optimization",
     "variational quantum",
+    "vqa",
     "vqe",
     "qaoa",
     "quantum walk",
@@ -704,6 +705,15 @@ def iter_works_for_source(
         total = meta.get("count")
         results = data.get("results", [])
 
+        # Compute how many pages actually exist for this query
+        effective_page_limit = max_pages_by_api
+        if isinstance(total, int) and per_page > 0:
+            pages_from_count = (total + per_page - 1) // per_page  # ceil(total / per_page)
+            if effective_page_limit is None:
+                effective_page_limit = pages_from_count
+            else:
+                effective_page_limit = min(effective_page_limit, pages_from_count)
+
         # If the range is too large (>10k) and spans more than one year,
         # split it into two subranges and recurse.
         if isinstance(total, int) and total > 10000 and y0 < y1:
@@ -720,14 +730,29 @@ def iter_works_for_source(
             if page == 1:
                 current_results = results
             else:
-                if max_pages_by_api is not None and page > max_pages_by_api:
+                # Don't request pages beyond what meta["count"] says is possible
+                if effective_page_limit is not None and page > effective_page_limit:
                     break
+
                 params = {
                     "filter": filter_str,
                     "page": page,
                     "per-page": per_page,
                 }
-                data = openalex_get("/works", params, mailto=mailto, sleep=sleep)
+
+                try:
+                    data = openalex_get("/works", params, mailto=mailto, sleep=sleep)
+                except requests.HTTPError as e:
+                    # OpenAlex can return 409 if page is out of range or query too broad.
+                    # Treat that as "no more pages" for this range.
+                    if e.response is not None and e.response.status_code == 409:
+                        print(
+                            f"[warning] OpenAlex 409 for source {source_id}, "
+                            f"years [{y0},{y1}], page {page}; stopping pagination."
+                        )
+                        break
+                    raise
+
                 current_results = data.get("results", [])
 
             if not current_results:
@@ -737,15 +762,8 @@ def iter_works_for_source(
                 yield w
 
             page += 1
-            if max_pages_by_api is not None and page > max_pages_by_api:
-                # If we ever hit this for a single-year range, it means
-                # even the filtered query has >10k results. This is extremely
-                # unlikely for genuine quantum subsets, but we log just in case.
-                if y0 == y1 and isinstance(total, int) and total > 10000:
-                    print(
-                        f"[warning] Hit 10k cap for source {source_id} in year {y0} "
-                        f"(total={total}); some works may be omitted."
-                    )
+            if effective_page_limit is not None and page > effective_page_limit:
+                # Optional: keep your 10k-warning logic here if you like
                 break
 
     # Kick off recursion on the full year range.

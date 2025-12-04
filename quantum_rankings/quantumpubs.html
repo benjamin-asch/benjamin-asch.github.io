@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Quantum Publication Analytics</title>
+  <title>Quantum Publication Analytics Explorer</title>
 
   <!-- Modern font -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -20,60 +20,27 @@
         <div>
           <h1>Quantum Publication Analytics</h1>
           <p class="tagline">
-            Explore institutions advancing quantum computing and information.
+            A tool for exploring publication activity in quantum research.
           </p>
         </div>
       </div>
 
       <div class="header-actions">
-        <!-- You can remove this button entirely if you never want dark mode -->
-        <!-- <button id="themeToggle" class="ghost-button" type="button" aria-label="Toggle theme">
+        <!-- Optional dark mode toggle
+        <button id="themeToggle" class="ghost-button" type="button" aria-label="Toggle theme">
           <span class="theme-icon">☀️</span>
-        </button> -->
+        </button>
+        -->
       </div>
     </header>
 
-        <!-- Description + Disclaimer -->
-        <section class="card info-card">
-          <div class="card-header">
-            <h2>About this ranking</h2>
-          </div>
-          <p class="card-subtitle">
-            This project, which was inspired by <a href="https://csrankings.org" target="_blank" rel="noopener"><strong>csrankings.org</strong></a>, aims to provide a transparent, data-driven view of global research
-            activity in quantum computing and quantum information. It aggregates
-            publication output from selected venues using OpenAlex.
-          </p>
-    
-          <div class="description-block">
-            <p>
-              This ranking is experimental, and publication lists from OpenAlex may be
-              incomplete (particularly true for TCS), include misattributions, or fail to distinguish between
-              researchers with similar names. The venue list is clearly not exhaustive. 
-              Some users with the same name are listed more 
-              than once under the same institution. Users should use the results in their search 
-              for a suitable institution rather than as a definitive measurement. Scrolling to the side reveals additional information, as does clicking on a row.
-              Numerous bugs still exist. If you would like to contribute to the project or have 
-              suggestions, feel free to shoot me an email at the address listed on my homepage.
-            </p>
-          </div>
-    
-          <div class="disclaimer-block">
-            <h3>Disclaimer</h3>
-            <p>
-              The dataset is automatically generated from public metadata and does not
-              reflect qualitative judgments about researchers or institutions. The tool
-              is in active development, and numbers may shift as data sources update.
-            </p>
-          </div>
-        </section>
-    
-
+    <!-- MAIN TOOL FIRST -->
     <main class="layout">
       <!-- Filters / Controls -->
       <section id="filters" class="card filters-card">
         <div class="card-header">
           <h2>Filters</h2>
-          <p class="card-subtitle">Select years, venues, and regions.</p>
+          <p class="card-subtitle">Select years, venues, regions, and subfields.</p>
         </div>
 
         <div class="filters-grid">
@@ -118,7 +85,7 @@
           </div>
         
           <div class="pill-group">
-            <div class="pill-label">Subfields</div>
+            <div class="pill-label">Subfields (Experimental)</div>
             <div class="pill-container" id="subfieldFilters">
               <!-- Subfield checkboxes populated by JS -->
             </div>
@@ -127,20 +94,20 @@
 
         <div class="filters-footer">
           <button id="updateBtn" class="primary-button" type="button">
-            Update ranking
+            Update view
           </button>
           <p class="hint-text">
-            Click a row to see the researcher breakdown.
+            Click an institution to see the per-researcher breakdown.
           </p>
         </div>
       </section>
 
-      <!-- Rankings -->
+      <!-- Institution overview -->
       <section id="rankingSection" class="card table-card">
         <div class="card-header">
-          <h2>Institution rankings</h2>
+          <h2>Institution overview</h2>
           <p class="card-subtitle">
-            Aggregated output over the selected venues and years.
+            Aggregated publication counts over the selected venues and years.
           </p>
         </div>
 
@@ -148,7 +115,7 @@
           <table id="rankingTable">
             <thead>
               <tr>
-                <th>Rank</th>
+                <th>#</th>
                 <th>Institution</th>
                 <th>Region</th>
                 <th>Total pubs</th>
@@ -157,19 +124,19 @@
               </tr>
             </thead>
             <tbody>
-              <!-- Rankings inserted by JS -->
+              <!-- Rows inserted by JS -->
             </tbody>
           </table>
         </div>
       </section>
 
-      <!-- Researcher Details (now full width) -->
+      <!-- Researcher Details (full width) -->
       <section id="detailsSection" class="card table-card wide-card" style="display:none;">
         <div class="card-header">
           <div>
             <h2 id="detailsTitle">Researcher details</h2>
             <p class="card-subtitle">
-              Per-author breakdown for the selected institution.
+              Per-author publication breakdown for the selected institution (as inferred from OpenAlex).
             </p>
           </div>
           <button id="closeDetails" class="ghost-button small" type="button">
@@ -194,18 +161,105 @@
       </section>
     </main>
 
+    <!-- NOW: ALL THE EXPLANATION UNDER THE TOOL -->
+    <section class="card info-card">
+      <div class="card-header">
+        <h2>About</h2>
+      </div>
+      <p class="card-subtitle">
+        This project, inspired by <a href="https://csrankings.org" target="_blank" rel="noopener"><strong>csrankings.org</strong></a>,
+        is meant as a simple, transparent explorer for publication activity in quantum computing
+        and quantum information. It aggregates papers from a select list of journals and conferences using
+        the <a href="https://openalex.org" target="_blank" rel="noopener"><strong>OpenAlex</strong></a> API.
+      </p>
+
+      <div class="description-block">
+        <p>
+          The idea is to give a rough sense of where quantum-related papers are showing up,
+          using a select list of venues and a simple aggregation over authors and institutions.
+          It’s a way to poke at the data, not a ranking of research quality.
+        </p>
+      </div>
+
+      <div class="description-block">
+        <h3>Methodology and Sources</h3>
+        <p>All of the data you see above comes from quering the <a href="https://openalex.org" target="_blank" rel="noopener">OpenAlex</a> API
+          for works whose primary source is each venue, over the chosen year range. For TCS conferences/symposia, we first find paper titles or DOIs from
+        DBLP before querying OpenAlex. For all other venues, querying OpenAlex alone seems to be sufficient. Papers from generic, non-quantum venues are then 
+        only kept should they contain one or more keywords from a list of quantum-related words, which can be found in the Github repository for this site. Using the OpenAlex data,
+      we are then able to calculate the total number of publications, "distinct" researchers, and a publications-per-researcher ratio. The tables above are just these aggregates, sorted according
+    to the selected metric. No additional fancy weighting or scoring is occuring behind the scenes. Unfortunately, we are only able to list the 500 institutions with the greatest number of publications
+  before the site begins to slow down.</p>
+        <p>
+          Everything is driven automatically by the scripts in the associated repository, and there is no hand-tuning of individual author lists or affiliations.
+        </p>
+      </div>
+
+      <div class="description-block">
+        <h3>Limitations and caveats</h3>
+        <p>
+          There is a great deal of room for improvement here. In particular:
+        </p>
+        <ul>
+          <li>
+            <strong>Coverage is incomplete.</strong> Not all venues are included, and even for
+            included venues, some years or papers are missing from OpenAlex. TCS-style quantum work
+            is especially easy to miss if the title looks “classical”.
+          </li>
+          <li>
+            <strong>Name disambiguation is imperfect.</strong> Different people with similar names
+            can get merged; the same person can appear multiple times if their records are split.
+            You will see duplicate entries for some researchers and institutions.
+          </li>
+          <li>
+            <strong>Affiliations move around.</strong> People change institutions, list multiple
+            affiliations, or have incomplete affiliation data. Here, a paper is counted for an
+            institution if at least one author is listed with that affiliation in the metadata.
+          </li>
+          <li>
+            <strong>The venue list and keyword filter are opinionated.</strong> They reflect my
+            attempt to capture a decent chunk of quantum work, not a
+            complete picture of the field. As a rule of thumb, you should uncheck any venues not associated with your subfield 
+            (e.g. if you're interested in theoretical quantum cryptography, PRL/A/X and others should be unchecked). Failing to do so will lead to an 
+            unecessary number of false positives.
+          </li>
+          <li>
+            <strong>Numbers are noisy.</strong> Small changes in venue choices, keyword lists,
+            or affiliation grouping can move institutions up or down quite a bit.
+          </li>
+        </ul>
+        </p>
+      </div>
+
+      <div class="disclaimer-block">
+        <h3>Disclaimer</h3>
+        <p>
+          The dataset is automatically generated from public metadata and does not reflect any
+          qualitative judgment about researchers or institutions. The ordering above is simply the
+          result of sorting by the chosen metric (e.g., total publications) and should not be
+          interpreted as an official ranking.
+        </p>
+        <p>
+          The tool is in active development, the scripts may change, and the numbers will move as
+          OpenAlex updates its records. There are almost certainly bugs. If something looks
+          wrong, or if you’d like to suggest a venue or improvement, feel free to shoot me an email
+          at the address listed on my homepage.
+        </p>
+      </div>
+    </section>
+
     <footer class="site-footer">
       <p>
-        Built by  <a href="https://benjaminasch.com" target="_blank" rel="noopener"><span class="accent">Benjamin Asch</span></a>. Updated December 2025.
+        Built by <a href="https://benjaminasch.com" target="_blank" rel="noopener"><span class="accent">Benjamin Asch</span></a>. Updated December 2025.
       </p>
     </footer>
   </div>
 
-  <!-- Keep your existing dataset + behavior -->
+  <!-- Data + behavior -->
   <script src="data.js"></script>
   <script src="script.js"></script>
 
-  <!-- Tiny inline script for theme toggle & closing details
+  <!-- Optional theme toggle / close behavior
   <script>
     (function () {
       const body = document.body;
@@ -213,7 +267,6 @@
       const closeDetails = document.getElementById('closeDetails');
       const detailsSection = document.getElementById('detailsSection');
 
-      // Start in light mode
       body.classList.add('theme-light');
 
       if (toggle) {
@@ -221,11 +274,7 @@
           body.classList.toggle('theme-light');
           body.classList.toggle('theme-dark');
           const icon = toggle.querySelector('.theme-icon');
-          if (body.classList.contains('theme-dark')) {
-            icon.textContent = '🌙';
-          } else {
-            icon.textContent = '☀️';
-          }
+          icon.textContent = body.classList.contains('theme-dark') ? '🌙' : '☀️';
         });
       }
 
@@ -235,6 +284,7 @@
         });
       }
     })();
-  </script> -->
+  </script>
+  -->
 </body>
 </html>
