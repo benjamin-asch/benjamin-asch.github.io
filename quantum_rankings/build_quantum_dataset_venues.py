@@ -41,6 +41,8 @@ This script does **not** call OpenAlex here in this environment; it is meant
 to be run on your own machine with internet access.
 """
 
+# Typical command: python build_quantum_dataset_venues.py   --min-year 2005   --max-year 2025   --mailto "basch.oakwood@gmail.com"   --min-papers-per-author 1   --min-papers-per-institution 5   --max-institutions 1000   --output-json data.json   --output-js data.js
+
 import argparse
 import json
 import time
@@ -65,37 +67,68 @@ import requests
 # ``source_ids`` empty and provide a search term; the builder will collect
 # all matching sources (one per conference edition) to ensure full coverage.
 DEFAULT_VENUES = [
-    
-    # {
-    #     # QIP spans both a journal and an annual conference.  Rather than specifying
-    #     # a single source id for the journal (which omits conference editions),
-    #     # we search for all sources whose display name contains the phrase
-    #     # "Quantum Information Processing".  This will capture the Springer
-    #     # journal and any conference series entries.  No keyword filtering is
-    #     # applied because the venue itself is quantum‑specific.
-    #     "code": "QIP",
-    #     "name": "Quantum Information Processing (journal/conference)",
-    #     "search": "Quantum Information Processing",
-    #     "require_keywords": False,
-    # },
+    # TCS venues – harvest via DBLP and require quantum keywords
     {
-        # TQC entries may appear as separate sources per edition.  Use a search
-        # string rather than a single id to gather all conference sources.  No
-        # keyword filtering is necessary as this venue is explicitly quantum.
-        "code": "TQC",
-        "name": "Theory of Quantum Computation, Communication and Cryptography (TQC)",
-        "search": "Conference on Theory of Quantum Computation, Communication and Cryptography",
+        "code": "FOCS",
+        "name": "IEEE Symposium on Foundations of Computer Science (FOCS)",
+        # Appears as 'venue': "FOCS" in DBLP JSON
+        "dblp_venue": "FOCS",
+        "require_keywords": True,
+    },
+    {
+        "code": "STOC",
+        "name": "ACM Symposium on Theory of Computing (STOC)",
+        # Appears as 'venue': "STOC" in DBLP JSON
+        "dblp_venue": "STOC",
+        "require_keywords": True,
+    },
+    {
+        "code": "SODA",
+        "name": "ACM-SIAM Symposium on Discrete Algorithms (SODA)",
+        # Appears as 'venue': "SODA" in DBLP JSON
+        "dblp_venue": "SODA",
+        "require_keywords": True,
+    },
+    {
+        "code": "CCC",
+        "name": "IEEE Conference on Computational Complexity (CCC)",
+        # DBLP uses 'CCC' as the venue acronym
+        "dblp_venue": "CCC",
+        "require_keywords": True,
+    },
+    {
+        "code": "ITCS",
+        "name": "Innovations in Theoretical Computer Science (ITCS)",
+        # In DBLP, the venue acronym is "ITCS"
+        "dblp_venue": "ITCS",
+        "require_keywords": True,
+    },
+    {
+        "code": "CRYPTO",
+        "name": "International Cryptology Conference (CRYPTO)",
+        "dblp_venue": "CRYPTO",
+        "require_keywords": True,  # keep only quantum-adjacent crypto via keywords
+    },
+    {
+        "code": "EUROCRYPT",
+        "name": "European Cryptology Conference (EUROCRYPT)",
+        "dblp_venue": "EUROCRYPT",
+        "require_keywords": True,
+    },
+    {
+        "code": "QCRYPT",
+        "name": "Conference on Quantum Cryptography (QCrypt)",
+        # QCrypt is quantum by design; no keyword filter needed.
+        "dblp_venue": "QCRYPT",
         "require_keywords": False,
     },
-    # {
-    #     # QCrypt may be indexed sparsely.  Provide a search string so all
-    #     # conference editions are discovered.  This venue focuses on quantum
-    #     # cryptography and thus does not require keyword filtering.
-    #     "code": "QCRYPT",
-    #     "name": "Conference on Quantum Cryptography (QCrypt)",
-    #     "search": "Quantum Cryptography",
-    #     "require_keywords": False,
-    # },
+    {
+        "code": "TQC",
+        "name": "Theory of Quantum Computation, Communication and Cryptography (TQC)",
+        # TQC is quantum-specific, but DBLP coverage is extremely good
+        "dblp_venue": "TQC",
+        "require_keywords": False,
+    },
     {
         # Journals and magazines: supply explicit source ids.  Codes have been
         # normalised to match the frontend (no underscores).
@@ -125,30 +158,8 @@ DEFAULT_VENUES = [
     {
         "code": "ACMTQC",
         "name": "ACM Transactions on Quantum Computing",
-        "search": "Symposium on Discrete Algorithms",
+        "source_ids": ["https://openalex.org/S4210170170"],
         "require_keywords": False,
-    },
-    # Generic TCS venues – we require quantum keywords to avoid non‑quantum theory papers.
-    {
-        "code": "FOCS",
-        "name": "IEEE Symposium on Foundations of Computer Science (FOCS)",
-        # Let OpenAlex /sources?search=... return *all* FOCS-related sources
-        # (different editions / series names), and then filter them by display_name.
-        "search": "Annual Symposium on Foundations of Computer Science",
-        "require_keywords": True,
-    },
-
-    # {
-    #     "code": "STOC",
-    #     "name": "ACM Symposium on Theory of Computing (STOC)",
-    #     "search": "Symposium on Theory of Computing",
-    #     "require_keywords": True,
-    # },
-    {
-        "code": "SODA",
-        "name": "ACM-SIAM Symposium on Discrete Algorithms (SODA)",
-        "source_ids": ["https://openalex.org/S4363608728"],
-        "require_keywords": True,
     },
     {
         "code": "NATCOMM",
@@ -285,8 +296,6 @@ QUANTUM_KEYWORDS = [
     "quantum pcp",
     "pcp for entangled",
     "quantum low-degree test",
-    "low-degree test",
-    "low degree test",
     "classical verification of quantum",
     "verifiable quantum",
 ]
@@ -708,6 +717,272 @@ def iter_works_for_source(
     # Kick off recursion on the full year range.
     yield from _iter_year_range(start_year, end_year)
 
+# ------------------------- DBLP + OpenAlex bridging -------------------------------
+
+DBLP_SEARCH_URL = "https://dblp.org/search/publ/api"
+
+
+def dblp_search_conference_papers(
+    venue_acronym: str,
+    start_year: int,
+    end_year: int,
+    max_hits: int = 1000,
+) -> List[Dict[str, Any]]:
+    """
+    Query the DBLP publication API for a given conference acronym over
+    [start_year, end_year].
+
+    Strategy:
+      * For each year, search for "<VENUE> <YEAR>".
+      * Filter hits so that info["venue"] contains the exact acronym
+        and drop obvious non-paper types like "Editorship".
+      * Return a flat list of info dicts enriched with an int "year_int".
+    """
+    results: List[Dict[str, Any]] = []
+
+    for year in range(start_year, end_year + 1):
+        params = {
+            "q": f"{venue_acronym} {year}",
+            "h": str(max_hits),
+            "format": "json",
+        }
+        try:
+            resp = requests.get(DBLP_SEARCH_URL, params=params, timeout=30)
+            resp.raise_for_status()
+            data = resp.json().get("result", {})
+        except Exception as e:
+            print(f"[dblp] {venue_acronym} {year}: request failed: {e}")
+            continue
+
+        hits = (data.get("hits") or {}).get("hit") or []
+        if isinstance(hits, dict):
+            hits = [hits]
+
+        for hit in hits:
+            info = hit.get("info", {}) or {}
+            # Filter by venue acronym
+            v = info.get("venue")
+            if isinstance(v, list):
+                has_venue = venue_acronym in v
+            else:
+                has_venue = (v == venue_acronym)
+            if not has_venue:
+                continue
+
+            typ = info.get("type") or ""
+            # Skip obvious non-paper container/editorship records
+            if typ.lower().startswith("editorship"):
+                continue
+
+            year_str = info.get("year")
+            try:
+                y_int = int(year_str)
+            except (TypeError, ValueError):
+                continue
+            if y_int < start_year or y_int > end_year:
+                continue
+
+            info = dict(info)
+            info["year_int"] = y_int
+            results.append(info)
+
+    print(f"[dblp] {venue_acronym}: collected {len(results)} candidate papers from DBLP")
+    return results
+
+
+def _extract_doi_from_dblp_info(info: Dict[str, Any]) -> str:
+    """
+    Try to extract a clean DOI string from a DBLP 'info' dict.
+    """
+    doi = info.get("doi")
+    ee = info.get("ee")
+    if not doi and isinstance(ee, str) and "doi.org/" in ee:
+        doi = ee.split("doi.org/", 1)[-1]
+    if not doi:
+        return None
+    doi = doi.strip()
+    # Strip possible URL prefix
+    if doi.lower().startswith("https://doi.org/"):
+        doi = doi[len("https://doi.org/") :]
+    elif doi.lower().startswith("http://doi.org/"):
+        doi = doi[len("http://doi.org/") :]
+    return doi or None
+
+
+def fetch_openalex_work_by_doi(doi: str, mailto: str = None) -> Dict[str, Any]:
+    """
+    Resolve a DOI to an OpenAlex work via /works/doi:<doi>.
+    Returns {} on failure.
+    """
+    if not doi:
+        return {}
+    try:
+        data = openalex_get(f"/works/doi:{doi}", params={}, mailto=mailto, sleep=0.2)
+        return data or {}
+    except requests.HTTPError as e:
+        if e.response is not None and e.response.status_code == 404:
+            # Not found in OpenAlex
+            return {}
+        print(f"[openalex] DOI {doi}: HTTP error {e}")
+        return {}
+    except Exception as e:
+        print(f"[openalex] DOI {doi}: generic error {e}")
+        return {}
+
+
+def search_openalex_work_by_title(
+    title: str,
+    year_hint: int = None,
+    mailto: str = None,
+    max_results: int = 5,
+) -> Dict[str, Any]:
+    """
+    Fallback: search OpenAlex by (approximate) title and optional year window.
+    Returns the first plausible work or {}.
+    """
+    title = (title or "").strip()
+    if not title:
+        return {}
+    filters = []
+    if year_hint is not None:
+        # Restrict to [year_hint-1, year_hint+1] to reduce collisions
+        lo = year_hint - 1
+        hi = year_hint + 1
+        filters.append(f"from_publication_date:{lo}-01-01")
+        filters.append(f"to_publication_date:{hi}-12-31")
+    filter_str = ",".join(filters) if filters else None
+
+    params: Dict[str, Any] = {
+        "search": title,
+        "per_page": max_results,
+    }
+    if filter_str:
+        params["filter"] = filter_str
+
+    try:
+        data = openalex_get("/works", params=params, mailto=mailto, sleep=0.2)
+    except Exception as e:
+        print(f"[openalex] title search failed for '{title[:80]}...': {e}")
+        return {}
+
+    results = (data or {}).get("results") or []
+    if not results:
+        return {}
+
+    # Pick the first result with compatible year if possible
+    for w in results:
+        y = w.get("publication_year")
+        try:
+            y = int(y)
+        except (TypeError, ValueError):
+            y = None
+        if year_hint is not None and y is not None and abs(y - year_hint) <= 1:
+            return w
+    # Otherwise just return the top result
+    return results[0]
+
+def harvest_dblp_venue(
+    vcfg: Dict[str, Any],
+    start_year: int,
+    end_year: int,
+    institutions: Dict[str, Dict[str, Any]],
+    author_inst: Dict[Tuple[str, str], Dict[str, Any]],
+    venues_out: List[Dict[str, str]],
+    seen_work_ids: set,
+    mailto: str = None,
+):
+    """
+    Bridge DBLP -> OpenAlex -> our aggregation.
+
+    vcfg must contain:
+      * code
+      * name
+      * dblp_venue: the acronym as it appears in DBLP's 'venue' field
+      * require_keywords: whether to apply quantum keyword filtering
+    """
+    code = vcfg.get("code")
+    name = vcfg.get("name")
+    dblp_venue = vcfg.get("dblp_venue")
+    require_keywords = vcfg.get("require_keywords", False)
+
+    if not dblp_venue:
+        print(f"[dblp] {code}: no dblp_venue configured; skipping")
+        return
+
+    # Record venue descriptor once
+    venues_out.append({"code": code, "name": name})
+
+    dblp_infos = dblp_search_conference_papers(
+        dblp_venue,
+        start_year=start_year,
+        end_year=end_year,
+    )
+
+    for info in dblp_infos:
+        title = info.get("title") or ""
+        year_int = info.get("year_int")
+
+        # Resolve to OpenAlex via DOI if possible, otherwise via title search
+        doi = _extract_doi_from_dblp_info(info)
+        work: Dict[str, Any] = {}
+        if doi:
+            work = fetch_openalex_work_by_doi(doi, mailto=mailto)
+        if not work:
+            work = search_openalex_work_by_title(title, year_hint=year_int, mailto=mailto)
+        if not work:
+            print(f"[dblp] {code}: could not resolve OpenAlex work for '{title[:80]}...' ({year_int})")
+            continue
+
+        work_id = work.get("id")
+        if work_id and work_id in seen_work_ids:
+            continue
+        if work_id:
+            seen_work_ids.add(work_id)
+
+        year = work.get("publication_year") or year_int
+        try:
+            year = int(year)
+        except (TypeError, ValueError):
+            continue
+        if year < start_year or year > end_year:
+            continue
+
+        # Apply our quantum keyword filtering if requested
+        if not is_quantum_paper(work, require_keywords=require_keywords):
+            continue
+
+        final_title = (work.get("title") or work.get("display_name") or title).strip() or "(untitled)"
+        pub_entry = {"year": int(year), "venue": code, "title": final_title}
+
+        # Attach publication to each institution listed in this authorship
+        for auth in work.get("authorships", []):
+            author = auth.get("author") or {}
+            author_id = author.get("id")
+            author_name = author.get("display_name") or "Unknown"
+            insts = auth.get("institutions") or []
+            if not insts or not author_id:
+                continue
+            for inst in insts:
+                inst_id = inst.get("id")
+                if not inst_id:
+                    continue
+                inst_name = inst.get("display_name") or "Unknown institution"
+                country_code = inst.get("country_code")
+                if inst_id not in institutions:
+                    institutions[inst_id] = {
+                        "name": inst_name,
+                        "region": region_from_country_code(country_code),
+                    }
+                key = (author_id, inst_id)
+                if key not in author_inst:
+                    author_inst[key] = {
+                        "name": author_name,
+                        "institution_id": inst_id,
+                        "publications": [],
+                    }
+                author_inst[key]["publications"].append(pub_entry)
+
+
 
 # ------------------------- Core logic -------------------------------------
 
@@ -773,16 +1048,32 @@ def build_dataset_from_venues(
         code = vcfg.get("code")
         name = vcfg.get("name")
         require_keywords = vcfg.get("require_keywords", False)
-        # Determine source IDs for this venue
+
+        # If this venue is configured to be harvested via DBLP, do that and skip
+        dblp_venue = vcfg.get("dblp_venue")
+        if dblp_venue:
+            print(f"[venue] {code}: harvesting via DBLP venue '{dblp_venue}'")
+            harvest_dblp_venue(
+                vcfg,
+                start_year=start_year,
+                end_year=end_year,
+                institutions=institutions,
+                author_inst=author_inst,
+                venues_out=venues_out,
+                seen_work_ids=seen_work_ids,
+                mailto=mailto,
+            )
+            continue
+
+        # Determine source IDs for this venue (OpenAlex path)
         explicit_ids: List[str] = list(vcfg.get("source_ids", []) or [])
         source_ids: List[str] = []
         if explicit_ids:
             source_ids = explicit_ids
-            print(f"[venue] {code}: using {len(source_ids)} explicit source id(s)")
         else:
             search = vcfg.get("search")
             if not search:
-                print(f"[venue] {code}: no source_ids or search term provided; skipping")
+                print(f"[venue] {code}: neither 'source_ids' nor 'search' provided; skipping")
                 continue
             # Resolve all plausible source IDs for this search term
             source_ids = find_source_ids_for_venue(search, mailto=mailto, max_candidates=25)
