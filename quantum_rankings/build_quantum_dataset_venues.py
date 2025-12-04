@@ -48,7 +48,7 @@ import json
 import time
 from collections import defaultdict
 from typing import Dict, List, Any, Tuple
-
+import pathlib
 import requests
 
 
@@ -283,6 +283,8 @@ QUANTUM_KEYWORDS = [
     "nonlocal games",
     "entangled game",
     "entangled games",
+    "entangled prover",
+    "entangled provers",
     "xor game",
     "xor games",
     "interactive proof",
@@ -541,6 +543,38 @@ def region_from_country_code(code: str) -> str:
         return "Other"
     return COUNTRY_TO_REGION.get(code.upper(), "Other")
 
+# ------------------------- OpenAlex caching ------------------------------
+
+OPENALEX_CACHE_PATH = pathlib.Path(__file__).with_name("openalex_cache.json")
+
+# Structure: {"doi": {doi -> slim_work}, "title": {key -> slim_work}}
+_openalex_cache = {"doi": {}, "title": {}}
+
+
+def load_openalex_cache():
+    global _openalex_cache
+    if OPENALEX_CACHE_PATH.is_file():
+        try:
+            with OPENALEX_CACHE_PATH.open("r", encoding="utf-8") as f:
+                data = json.load(f)
+            if isinstance(data, dict):
+                _openalex_cache["doi"] = dict(data.get("doi", {}))
+                _openalex_cache["title"] = dict(data.get("title", {}))
+            print(f"[cache] Loaded OpenAlex cache from {OPENALEX_CACHE_PATH}")
+        except Exception as e:
+            print(f"[cache] Failed to load cache ({e}); starting fresh")
+
+
+def save_openalex_cache():
+    tmp_path = OPENALEX_CACHE_PATH.with_suffix(".tmp")
+    try:
+        with tmp_path.open("w", encoding="utf-8") as f:
+            json.dump(_openalex_cache, f, ensure_ascii=False)
+        tmp_path.replace(OPENALEX_CACHE_PATH)
+        print(f"[cache] Saved OpenAlex cache to {OPENALEX_CACHE_PATH}")
+    except Exception as e:
+        print(f"[cache] Failed to save cache ({e})")
+
 
 # ------------------------- OpenAlex helpers -------------------------------
 
@@ -717,9 +751,58 @@ def iter_works_for_source(
     # Kick off recursion on the full year range.
     yield from _iter_year_range(start_year, end_year)
 
+def _slim_openalex_work(work: Dict[str, Any]) -> Dict[str, Any]:
+    """
+    Keep only fields we actually use to keep the cache small:
+      - id, title/display_name, publication_year
+      - authorships: author(id, display_name), institutions(id, display_name, country_code)
+    """
+    if not work:
+        return {}
+    out: Dict[str, Any] = {
+        "id": work.get("id"),
+        "title": work.get("title") or work.get("display_name"),
+        "display_name": work.get("display_name"),
+        "publication_year": work.get("publication_year"),
+    }
+    slim_authorships = []
+    for auth in work.get("authorships", []):
+        a = auth.get("author") or {}
+        insts = auth.get("institutions") or []
+        slim_insts = []
+        for inst in insts:
+            slim_insts.append({
+                "id": inst.get("id"),
+                "display_name": inst.get("display_name"),
+                "country_code": inst.get("country_code"),
+            })
+        slim_authorships.append({
+            "author": {
+                "id": a.get("id"),
+                "display_name": a.get("display_name"),
+            },
+            "institutions": slim_insts,
+        })
+    out["authorships"] = slim_authorships
+    return out
+
+
 # ------------------------- DBLP + OpenAlex bridging -------------------------------
 
 DBLP_SEARCH_URL = "https://dblp.org/search/publ/api"
+
+
+def _title_looks_quantum(title: str) -> bool:
+    """
+    Cheap prefilter using only the title and QUANTUM_KEYWORDS.
+
+    This is used *before* we call OpenAlex for generic TCS/crypto venues
+    (require_keywords=True) so we don't resolve obviously classical papers.
+    """
+    t = (title or "").lower()
+    if not t:
+        return False
+    return any(kw.lower() in t for kw in QUANTUM_KEYWORDS)
 
 
 def dblp_search_conference_papers(
@@ -734,9 +817,8 @@ def dblp_search_conference_papers(
 
     Strategy:
       * For each year, search for "<VENUE> <YEAR>".
-      * Filter hits so that info["venue"] contains the exact acronym
-        and drop obvious non-paper types like "Editorship".
-      * Return a flat list of info dicts enriched with an int "year_int".
+      * Filter hits so that info["venue"] contains the exact acronym.
+      * Drop obvious non-paper types.
     """
     results: List[Dict[str, Any]] = []
 
@@ -760,18 +842,18 @@ def dblp_search_conference_papers(
 
         for hit in hits:
             info = hit.get("info", {}) or {}
-            # Filter by venue acronym
             v = info.get("venue")
+
             if isinstance(v, list):
                 has_venue = venue_acronym in v
             else:
                 has_venue = (v == venue_acronym)
+
             if not has_venue:
                 continue
 
-            typ = info.get("type") or ""
-            # Skip obvious non-paper container/editorship records
-            if typ.lower().startswith("editorship"):
+            typ = (info.get("type") or "").lower()
+            if typ.startswith("editorship"):
                 continue
 
             year_str = info.get("year")
@@ -801,7 +883,6 @@ def _extract_doi_from_dblp_info(info: Dict[str, Any]) -> str:
     if not doi:
         return None
     doi = doi.strip()
-    # Strip possible URL prefix
     if doi.lower().startswith("https://doi.org/"):
         doi = doi[len("https://doi.org/") :]
     elif doi.lower().startswith("http://doi.org/"):
@@ -811,23 +892,33 @@ def _extract_doi_from_dblp_info(info: Dict[str, Any]) -> str:
 
 def fetch_openalex_work_by_doi(doi: str, mailto: str = None) -> Dict[str, Any]:
     """
-    Resolve a DOI to an OpenAlex work via /works/doi:<doi>.
-    Returns {} on failure.
+    Resolve a DOI to an OpenAlex work via /works/doi:<doi>, with cache.
     """
     if not doi:
         return {}
+
+    # Cache lookup
+    if doi in _openalex_cache["doi"]:
+        return _openalex_cache["doi"][doi]
+
     try:
-        data = openalex_get(f"/works/doi:{doi}", params={}, mailto=mailto, sleep=0.2)
-        return data or {}
+        # For DOI lookups we can set sleep=0 and rely on overall rate being modest.
+        data = openalex_get(f"/works/doi:{doi}", params={}, mailto=mailto, sleep=0.0)
     except requests.HTTPError as e:
         if e.response is not None and e.response.status_code == 404:
-            # Not found in OpenAlex
             return {}
         print(f"[openalex] DOI {doi}: HTTP error {e}")
         return {}
     except Exception as e:
         print(f"[openalex] DOI {doi}: generic error {e}")
         return {}
+
+    if not data:
+        return {}
+
+    slim = _slim_openalex_work(data)
+    _openalex_cache["doi"][doi] = slim
+    return slim
 
 
 def search_openalex_work_by_title(
@@ -837,15 +928,22 @@ def search_openalex_work_by_title(
     max_results: int = 5,
 ) -> Dict[str, Any]:
     """
-    Fallback: search OpenAlex by (approximate) title and optional year window.
-    Returns the first plausible work or {}.
+    Fallback: search OpenAlex by title and optional year window, with cache.
     """
     title = (title or "").strip()
     if not title:
         return {}
+
+    key_parts = [title.lower()]
+    if year_hint is not None:
+        key_parts.append(str(year_hint))
+    cache_key = "|".join(key_parts)
+
+    if cache_key in _openalex_cache["title"]:
+        return _openalex_cache["title"][cache_key]
+
     filters = []
     if year_hint is not None:
-        # Restrict to [year_hint-1, year_hint+1] to reduce collisions
         lo = year_hint - 1
         hi = year_hint + 1
         filters.append(f"from_publication_date:{lo}-01-01")
@@ -860,7 +958,7 @@ def search_openalex_work_by_title(
         params["filter"] = filter_str
 
     try:
-        data = openalex_get("/works", params=params, mailto=mailto, sleep=0.2)
+        data = openalex_get("/works", params=params, mailto=mailto, sleep=0.0)
     except Exception as e:
         print(f"[openalex] title search failed for '{title[:80]}...': {e}")
         return {}
@@ -869,7 +967,7 @@ def search_openalex_work_by_title(
     if not results:
         return {}
 
-    # Pick the first result with compatible year if possible
+    chosen = None
     for w in results:
         y = w.get("publication_year")
         try:
@@ -877,9 +975,15 @@ def search_openalex_work_by_title(
         except (TypeError, ValueError):
             y = None
         if year_hint is not None and y is not None and abs(y - year_hint) <= 1:
-            return w
-    # Otherwise just return the top result
-    return results[0]
+            chosen = w
+            break
+    if chosen is None:
+        chosen = results[0]
+
+    slim = _slim_openalex_work(chosen)
+    _openalex_cache["title"][cache_key] = slim
+    return slim
+
 
 def harvest_dblp_venue(
     vcfg: Dict[str, Any],
@@ -909,7 +1013,6 @@ def harvest_dblp_venue(
         print(f"[dblp] {code}: no dblp_venue configured; skipping")
         return
 
-    # Record venue descriptor once
     venues_out.append({"code": code, "name": name})
 
     dblp_infos = dblp_search_conference_papers(
@@ -918,9 +1021,18 @@ def harvest_dblp_venue(
         end_year=end_year,
     )
 
+    total = len(dblp_infos)
+    filtered_out_by_title = 0
+    resolved = 0
+
     for info in dblp_infos:
         title = info.get("title") or ""
         year_int = info.get("year_int")
+
+        # Cheap prefilter for generic venues: skip obviously classical papers
+        if require_keywords and not _title_looks_quantum(title):
+            filtered_out_by_title += 1
+            continue
 
         # Resolve to OpenAlex via DOI if possible, otherwise via title search
         doi = _extract_doi_from_dblp_info(info)
@@ -932,6 +1044,8 @@ def harvest_dblp_venue(
         if not work:
             print(f"[dblp] {code}: could not resolve OpenAlex work for '{title[:80]}...' ({year_int})")
             continue
+
+        resolved += 1
 
         work_id = work.get("id")
         if work_id and work_id in seen_work_ids:
@@ -947,14 +1061,13 @@ def harvest_dblp_venue(
         if year < start_year or year > end_year:
             continue
 
-        # Apply our quantum keyword filtering if requested
+        # Apply main quantum filter (title+abstract) if requested
         if not is_quantum_paper(work, require_keywords=require_keywords):
             continue
 
         final_title = (work.get("title") or work.get("display_name") or title).strip() or "(untitled)"
         pub_entry = {"year": int(year), "venue": code, "title": final_title}
 
-        # Attach publication to each institution listed in this authorship
         for auth in work.get("authorships", []):
             author = auth.get("author") or {}
             author_id = author.get("id")
@@ -982,6 +1095,10 @@ def harvest_dblp_venue(
                     }
                 author_inst[key]["publications"].append(pub_entry)
 
+    print(
+        f"[dblp] {code}: {total} candidates, {filtered_out_by_title} "
+        f"filtered by title, {resolved} resolved via OpenAlex"
+    )
 
 
 # ------------------------- Core logic -------------------------------------
@@ -1049,7 +1166,6 @@ def build_dataset_from_venues(
         name = vcfg.get("name")
         require_keywords = vcfg.get("require_keywords", False)
 
-        # If this venue is configured to be harvested via DBLP, do that and skip
         dblp_venue = vcfg.get("dblp_venue")
         if dblp_venue:
             print(f"[venue] {code}: harvesting via DBLP venue '{dblp_venue}'")
@@ -1295,6 +1411,8 @@ def parse_args() -> argparse.Namespace:
 def main():
     args = parse_args()
 
+    load_openalex_cache()
+
     dataset = build_dataset_from_venues(
         venues_cfg=DEFAULT_VENUES,
         start_year=args.min_year,
@@ -1305,6 +1423,8 @@ def main():
         min_papers_per_institution=args.min_papers_per_institution,
         max_institutions=args.max_institutions,
     )
+
+    save_openalex_cache()
 
     # Write JSON
     with open(args.output_json, "w", encoding="utf-8") as f:

@@ -1,4 +1,4 @@
-// Quantum research rankings script
+// Quantum publication analytics script
 
 let data = null;
 
@@ -8,7 +8,7 @@ let data = null;
 // contains at least one keyword from at least one selected subfield.
 const subfieldConfig = {
   qcrypto: {
-    label: 'Quantum cryptography / DI',
+    label: 'Quantum cryptography',
     keywords: [
       'quantum key distribution',
       'qkd',
@@ -138,7 +138,35 @@ const subfieldConfig = {
       'loqc',
       'locc',
       'separable states',
-      'separable state'
+      'separable state',
+      'bell inequality',
+      'bell inequalities',
+      'chsh',
+      'tsirelson bound',
+      'tsirelson\'s bound',
+      'contextuality',
+      'noncontextuality',
+      'non-contextuality',
+      'kochen-specker',
+      'kochen specker',
+      'leggett-garg',
+      'leggett garg',
+      'macrorealism',
+      'macro-realism',
+      'hidden variable',
+      'hidden variables',
+      'ontological model',
+      'ontological models',
+      'psi-epistemic',
+      'psi epistemic',
+      'psi-ontic',
+      'psi ontic',
+      'measurement problem',
+      'decoherence',
+      'einstein-podolsky-rosen',
+      'epr paradox',
+      'wigner\'s friend',
+      'frauchiger-renner'
     ]
   },
 
@@ -167,6 +195,9 @@ const subfieldConfig = {
       'quantum ldpc',
       'ldpc code',
       'ldpc codes',
+      'low density parity check',
+      'low-density parity',
+      'parity check',
       'fault-tolerant',
       'fault tolerant',
       'fault-tolerance',
@@ -249,40 +280,6 @@ const subfieldConfig = {
       'quantum search',
       'quantum speedup',
       'oracle separation'
-    ]
-  },
-
-  qfoundations: {
-    label: 'Foundations / nonlocality / contextuality',
-    keywords: [
-      'bell inequality',
-      'bell inequalities',
-      'chsh',
-      'tsirelson bound',
-      'tsirelson\'s bound',
-      'contextuality',
-      'noncontextuality',
-      'non-contextuality',
-      'kochen-specker',
-      'kochen specker',
-      'leggett-garg',
-      'leggett garg',
-      'macrorealism',
-      'macro-realism',
-      'hidden variable',
-      'hidden variables',
-      'ontological model',
-      'ontological models',
-      'psi-epistemic',
-      'psi epistemic',
-      'psi-ontic',
-      'psi ontic',
-      'measurement problem',
-      'decoherence',
-      'einstein-podolsky-rosen',
-      'epr paradox',
-      'wigner\'s friend',
-      'frauchiger-renner'
     ]
   },
 
@@ -698,7 +695,7 @@ function showDetails(entry) {
   const detailsTitle = document.getElementById('detailsTitle');
   const detailsTableBody = document.querySelector('#detailsTable tbody');
   detailsTableBody.innerHTML = '';
-  detailsTitle.textContent = `Faculty Details – ${entry.name}`;
+  detailsTitle.textContent = `Author Details – ${entry.name}`;
   entry.authors.forEach(author => {
     const row = document.createElement('tr');
     const detailsString = author.details.join(', ');

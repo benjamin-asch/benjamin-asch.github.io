@@ -1,0 +1,240 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Quantum Publication Analytics</title>
+
+  <!-- Modern font -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+
+  <link rel="stylesheet" href="style.css">
+</head>
+<body class="theme-light">
+  <div class="page-shell">
+    <header class="site-header">
+      <div class="logo-lockup">
+        <div class="logo-mark"></div>
+        <div>
+          <h1>Quantum Publication Analytics</h1>
+          <p class="tagline">
+            Explore institutions advancing quantum computing and information.
+          </p>
+        </div>
+      </div>
+
+      <div class="header-actions">
+        <!-- You can remove this button entirely if you never want dark mode -->
+        <!-- <button id="themeToggle" class="ghost-button" type="button" aria-label="Toggle theme">
+          <span class="theme-icon">☀️</span>
+        </button> -->
+      </div>
+    </header>
+
+        <!-- Description + Disclaimer -->
+        <section class="card info-card">
+          <div class="card-header">
+            <h2>About this ranking</h2>
+          </div>
+          <p class="card-subtitle">
+            This project, which was inspired by <a href="https://csrankings.org" target="_blank" rel="noopener"><strong>csrankings.org</strong></a>, aims to provide a transparent, data-driven view of global research
+            activity in quantum computing and quantum information. It aggregates
+            publication output from selected venues using OpenAlex.
+          </p>
+    
+          <div class="description-block">
+            <p>
+              This ranking is experimental, and publication lists from OpenAlex may be
+              incomplete (particularly true for TCS), include misattributions, or fail to distinguish between
+              researchers with similar names. The venue list is clearly not exhaustive. 
+              Some users with the same name are listed more 
+              than once under the same institution. Users should use the results in their search 
+              for a suitable institution rather than as a definitive measurement. Scrolling to the side reveals additional information, as does clicking on a row.
+              Numerous bugs still exist. If you would like to contribute to the project or have 
+              suggestions, feel free to shoot me an email at the address listed on my homepage.
+            </p>
+          </div>
+    
+          <div class="disclaimer-block">
+            <h3>Disclaimer</h3>
+            <p>
+              The dataset is automatically generated from public metadata and does not
+              reflect qualitative judgments about researchers or institutions. The tool
+              is in active development, and numbers may shift as data sources update.
+            </p>
+          </div>
+        </section>
+    
+
+    <main class="layout">
+      <!-- Filters / Controls -->
+      <section id="filters" class="card filters-card">
+        <div class="card-header">
+          <h2>Filters</h2>
+          <p class="card-subtitle">Select years, venues, and regions.</p>
+        </div>
+
+        <div class="filters-grid">
+          <div class="filter-group">
+            <label for="startYear">From year</label>
+            <div class="input-row">
+              <input type="number" id="startYear" min="2005" max="2030" value="2005">
+            </div>
+          </div>
+
+          <div class="filter-group">
+            <label for="endYear">To year</label>
+            <div class="input-row">
+              <input type="number" id="endYear" min="2005" max="2030" value="2025">
+            </div>
+          </div>
+
+          <div class="filter-group">
+            <label for="sortMethod">Sort by</label>
+            <div class="input-row">
+              <select id="sortMethod">
+                <option value="total">Total publications</option>
+                <option value="ratio">Publications per researcher</option>
+              </select>
+            </div>
+          </div>
+        </div>
+
+        <div class="pill-groups">
+          <div class="pill-group">
+            <div class="pill-label">Venues</div>
+            <div class="pill-container" id="venueFilters">
+              <!-- Venue checkboxes populated by JS -->
+            </div>
+          </div>
+        
+          <div class="pill-group">
+            <div class="pill-label">Regions</div>
+            <div class="pill-container" id="regionFilters">
+              <!-- Region checkboxes populated by JS -->
+            </div>
+          </div>
+        
+          <div class="pill-group">
+            <div class="pill-label">Subfields</div>
+            <div class="pill-container" id="subfieldFilters">
+              <!-- Subfield checkboxes populated by JS -->
+            </div>
+          </div>
+        </div>        
+
+        <div class="filters-footer">
+          <button id="updateBtn" class="primary-button" type="button">
+            Update ranking
+          </button>
+          <p class="hint-text">
+            Click a row to see the researcher breakdown.
+          </p>
+        </div>
+      </section>
+
+      <!-- Rankings -->
+      <section id="rankingSection" class="card table-card">
+        <div class="card-header">
+          <h2>Institution rankings</h2>
+          <p class="card-subtitle">
+            Aggregated output over the selected venues and years.
+          </p>
+        </div>
+
+        <div class="table-wrapper">
+          <table id="rankingTable">
+            <thead>
+              <tr>
+                <th>Rank</th>
+                <th>Institution</th>
+                <th>Region</th>
+                <th>Total pubs</th>
+                <th>Researchers</th>
+                <th>Pubs / researcher</th>
+              </tr>
+            </thead>
+            <tbody>
+              <!-- Rankings inserted by JS -->
+            </tbody>
+          </table>
+        </div>
+      </section>
+
+      <!-- Researcher Details (now full width) -->
+      <section id="detailsSection" class="card table-card wide-card" style="display:none;">
+        <div class="card-header">
+          <div>
+            <h2 id="detailsTitle">Researcher details</h2>
+            <p class="card-subtitle">
+              Per-author breakdown for the selected institution.
+            </p>
+          </div>
+          <button id="closeDetails" class="ghost-button small" type="button">
+            Close
+          </button>
+        </div>
+
+        <div class="table-wrapper">
+          <table id="detailsTable">
+            <thead>
+              <tr>
+                <th>Researcher</th>
+                <th>Publication count</th>
+                <th>Publications (year – venue)</th>
+              </tr>
+            </thead>
+            <tbody>
+              <!-- Researcher details inserted by JS -->
+            </tbody>
+          </table>
+        </div>
+      </section>
+    </main>
+
+    <footer class="site-footer">
+      <p>
+        Built by  <a href="https://benjaminasch.com" target="_blank" rel="noopener"><span class="accent">Benjamin Asch</span></a>. Updated December 2025.
+      </p>
+    </footer>
+  </div>
+
+  <!-- Keep your existing dataset + behavior -->
+  <script src="data.js"></script>
+  <script src="script.js"></script>
+
+  <!-- Tiny inline script for theme toggle & closing details
+  <script>
+    (function () {
+      const body = document.body;
+      const toggle = document.getElementById('themeToggle');
+      const closeDetails = document.getElementById('closeDetails');
+      const detailsSection = document.getElementById('detailsSection');
+
+      // Start in light mode
+      body.classList.add('theme-light');
+
+      if (toggle) {
+        toggle.addEventListener('click', () => {
+          body.classList.toggle('theme-light');
+          body.classList.toggle('theme-dark');
+          const icon = toggle.querySelector('.theme-icon');
+          if (body.classList.contains('theme-dark')) {
+            icon.textContent = '🌙';
+          } else {
+            icon.textContent = '☀️';
+          }
+        });
+      }
+
+      if (closeDetails && detailsSection) {
+        closeDetails.addEventListener('click', () => {
+          detailsSection.style.display = 'none';
+        });
+      }
+    })();
+  </script> -->
+</body>
+</html>
