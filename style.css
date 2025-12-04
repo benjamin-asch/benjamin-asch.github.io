@@ -412,6 +412,8 @@ select:focus {
 /* Tables */
 .table-card {
   padding-top: 16px;
+  display: flex;
+  flex-direction: column;
 }
 
 .table-wrapper {
@@ -422,7 +424,7 @@ select:focus {
   border: 1px solid var(--border-subtle);
   background: #ffffff;
   overflow: auto;
-  max-height: min(540px, 70vh);
+  max-height: min(720px, 70vh);
 }
 
 /* Scrollbars */
