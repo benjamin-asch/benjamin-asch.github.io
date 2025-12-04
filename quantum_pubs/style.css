@@ -40,6 +40,103 @@ body.theme-dark {
   --scrollbar-thumb: rgba(148, 163, 255, 0.7);
 }
 
+/* Extra dark-mode refinements */
+
+body.theme-dark .logo-mark {
+  border-color: rgba(148, 163, 255, 0.5);
+  background: radial-gradient(circle at 0 0, #22d3ee, #1d4ed8);
+}
+
+body.theme-dark .card::before {
+  background: linear-gradient(to right, rgba(56, 189, 248, 0.18), transparent);
+}
+
+body.theme-dark .table-wrapper {
+  background: #020617;
+  border-color: rgba(51, 65, 85, 0.9);
+}
+
+body.theme-dark thead {
+  background: var(--table-header-bg);
+}
+
+body.theme-dark tbody tr:hover {
+  background: var(--row-hover-bg);
+}
+
+body.theme-dark a {
+  color: var(--accent);
+}
+
+/* Optional: tweak description / disclaimer blocks slightly in dark mode */
+body.theme-dark .description-block,
+body.theme-dark .disclaimer-block {
+  background: #111827;
+  border: 1px solid rgba(30, 64, 175, 0.5);
+}
+
+/* Dark-mode: inputs and selects */
+body.theme-dark input[type="number"],
+body.theme-dark select {
+  background: var(--bg-soft);
+  color: var(--text-main);
+  border-color: var(--border-subtle);
+}
+
+body.theme-dark input[type="number"]:focus,
+body.theme-dark select:focus {
+  box-shadow: 0 0 0 1px rgba(110, 242, 255, 0.3);
+}
+
+/* Dark-mode: pill filter chips */
+body.theme-dark .pill-container label {
+  background: rgba(15, 23, 42, 0.9);
+  border-color: rgba(148, 163, 255, 0.6);
+  color: var(--text-muted);
+}
+
+body.theme-dark .pill-container label:hover {
+  background: var(--accent-soft);
+  border-color: var(--accent);
+  color: var(--text-main);
+}
+
+/* Dark mode: remove blue gradient glow and background effects */
+body.theme-dark .page-shell {
+  background: var(--bg-base);
+}
+
+body.theme-dark .page-shell::before {
+  background: none !important;
+}
+
+body.theme-dark .card::before {
+  background: none !important;
+}
+
+body.theme-dark .card {
+  background: var(--bg-soft);
+  border: 1px solid var(--border-subtle);
+  box-shadow: none;
+}
+
+body.theme-dark {
+  --bg-base: #0b0f17;
+  --bg-soft: #111827;
+  --border-subtle: rgba(255, 255, 255, 0.06);
+  --text-main: #e5e7eb;
+  --text-muted: #9ca3af;
+  --accent: #60a5fa;
+  --accent-soft: rgba(96,165,250,0.1);
+}
+
+
+/* Tiny touch for the text next to the icon */
+.theme-label {
+  font-size: 0.82rem;
+}
+
+
 /* Global resets */
 *,
 *::before,

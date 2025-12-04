@@ -26,11 +26,11 @@
       </div>
 
       <div class="header-actions">
-        <!-- Optional dark mode toggle
+        <!-- Optional dark mode toggle -->
         <button id="themeToggle" class="ghost-button" type="button" aria-label="Toggle theme">
           <span class="theme-icon">☀️</span>
         </button>
-        -->
+       
       </div>
     </header>
 
@@ -259,25 +259,46 @@
   <script src="data.js"></script>
   <script src="script.js"></script>
 
-  <!-- Optional theme toggle / close behavior
+  <!-- Theme + details behavior -->
   <script>
     (function () {
       const body = document.body;
       const toggle = document.getElementById('themeToggle');
-      const closeDetails = document.getElementById('closeDetails');
-      const detailsSection = document.getElementById('detailsSection');
+      const icon = toggle ? toggle.querySelector('.theme-icon') : null;
+      const label = toggle ? toggle.querySelector('.theme-label') : null;
 
-      body.classList.add('theme-light');
+      // Load saved preference or system preference
+      const stored = window.localStorage.getItem('qp-theme');
+      const prefersDark = window.matchMedia &&
+        window.matchMedia('(prefers-color-scheme: dark)').matches;
+
+      if (stored === 'dark' || (!stored && prefersDark)) {
+        body.classList.remove('theme-light');
+        body.classList.add('theme-dark');
+      }
+
+      function syncToggleLabel() {
+        const isDark = body.classList.contains('theme-dark');
+        if (icon) icon.textContent = isDark ? '🌙' : '☀️';
+        if (label) label.textContent = isDark ? 'Dark' : 'Light';
+      }
+
+      syncToggleLabel();
 
       if (toggle) {
         toggle.addEventListener('click', () => {
-          body.classList.toggle('theme-light');
           body.classList.toggle('theme-dark');
-          const icon = toggle.querySelector('.theme-icon');
-          icon.textContent = body.classList.contains('theme-dark') ? '🌙' : '☀️';
+          body.classList.toggle('theme-light');
+
+          const mode = body.classList.contains('theme-dark') ? 'dark' : 'light';
+          window.localStorage.setItem('qp-theme', mode);
+          syncToggleLabel();
         });
       }
 
+      // Keep your "close details" behavior
+      const closeDetails = document.getElementById('closeDetails');
+      const detailsSection = document.getElementById('detailsSection');
       if (closeDetails && detailsSection) {
         closeDetails.addEventListener('click', () => {
           detailsSection.style.display = 'none';
@@ -285,6 +306,5 @@
       }
     })();
   </script>
-  -->
 </body>
 </html>
