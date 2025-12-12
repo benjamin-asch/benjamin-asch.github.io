@@ -19,9 +19,9 @@
       svg: { fontCache: "global" }
     };
   </script>
-  
+
   <script async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-svg.js"></script>
-  
+
 
   <style>
     /* Layout */
@@ -177,6 +177,47 @@
       display: block;
     }
 
+    /* Link items */
+    .link-list {
+      list-style: none;
+      padding: 0;
+      margin: 0;
+    }
+    .link-item {
+      margin-bottom: 20px;
+      padding: 16px;
+      background: #ffffff;
+      border: 1px solid #e0d7cd;
+      border-radius: 8px;
+      transition: box-shadow 0.2s ease, transform 0.2s ease;
+    }
+    .link-item:hover {
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+      transform: translateY(-1px);
+    }
+    .link-item h3 {
+      font-family: "Cormorant Garamond", "Georgia", "Times New Roman", serif;
+      font-size: 1.15rem;
+      font-weight: 500;
+      margin: 0 0 6px;
+      color: #1b171f;
+    }
+    .link-item h3 a {
+      color: #1b171f;
+    }
+    .link-item h3 a:hover {
+      color: #2556b3;
+    }
+    .link-item p {
+      margin: 0 0 8px;
+      font-size: 0.92rem;
+      color: #4c4753;
+    }
+    .link-item .link-meta {
+      font-size: 0.85rem;
+      color: #7a7580;
+    }
+
     /* Footer */
     footer {
       margin-top: 28px;
@@ -204,7 +245,7 @@
         </div>
       </div>
       <div class="headshot">
-        <img src="me_img.jpg" alt="Photo of Benjamin Asch">
+        <img src="images/me_img.jpg" alt="Photo of Benjamin Asch">
       </div>
     </header>
 
@@ -229,7 +270,7 @@
       <button
         class="tab-button"
         type="button"
-        data-tab-button="trips"
+        data-tab-button="misc"
         aria-selected="false"
       >
         Miscellaneous
@@ -269,27 +310,35 @@
         </p>
         <p>
           The goal is not to produce a leaderboard, but to give people
-          a way to more easily search through the data themselves.The project is very much still in the experimental phase, and comments are more than welcome.
+          a way to more easily search through the data themselves. The project is very much still in the experimental phase, and comments are more than welcome.
         </p>
         <p>
-          <a href="https://benjamin-asch.github.io/quantumpubs.html" target="_blank" rel="noopener">
+          <a href="quantumpubs.html" target="_blank" rel="noopener">
             Quantum Publication Analytics Tool
           </a>
         </p>
       </section>
 
-      </section>
-
-      <!-- Trips / misc tab -->
+      <!-- Miscellaneous tab -->
       <section
         class="section"
         id="misc"
-        data-tab-panel="trips"
+        data-tab-panel="misc"
       >
         <h2>Miscellaneous</h2>
         <p>
-          Oops! You're early! Please come back another time.
+          Here's what I'm up to when I'm not doing research:
         </p>
+        <ul class="link-list">
+          <li class="link-item">
+            <h3><a href="posts/alps-bikepacking.html">Three Weeks Solo Bikepacking Across the Alps</a></h3>
+            <p>
+              A once in a lifetime... trip?
+            </p>
+            <span class="link-meta">Travel · Summer 2024</span>
+          </li>
+          <!-- Add more link items here as needed -->
+        </ul>
       </section>
     </main>
 
@@ -343,6 +392,6 @@
       }
     }
     </script>
-  
+
 </body>
 </html>
