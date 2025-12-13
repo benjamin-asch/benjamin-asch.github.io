@@ -10,7 +10,7 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
 
-  <link rel="stylesheet" href="css/style.css">
+  <link rel="stylesheet" href="style.css">
 </head>
 <body class="theme-light">
   <div class="page-shell">
@@ -183,12 +183,12 @@
 
       <div class="description-block">
         <h3>Methodology and Sources</h3>
-        <p>All of the data you see above comes from quering the <a href="https://openalex.org" target="_blank" rel="noopener">OpenAlex</a> API
+        <p>All of the data you see above comes from querying the <a href="https://openalex.org" target="_blank" rel="noopener">OpenAlex</a> API
           for works whose primary source is each venue, over the chosen year range. For TCS conferences/symposia, we first find paper titles or DOIs from
         DBLP before querying OpenAlex. For all other venues, querying OpenAlex alone seems to be sufficient. Papers from generic, non-quantum venues are then 
         only kept should they contain one or more keywords from a list of quantum-related words, which can be found in the Github repository for this site. Using the OpenAlex data,
       we are then able to calculate the total number of publications, "distinct" researchers, and a publications-per-researcher ratio. The tables above are just these aggregates, sorted according
-    to the selected metric. No additional fancy weighting or scoring is occuring behind the scenes. Unfortunately, we are only able to list the 500 institutions with the greatest number of publications
+    to the selected metric. No additional fancy weighting or scoring is occurring behind the scenes. Unfortunately, we are only able to list the 500 institutions with the greatest number of publications
   before the site begins to slow down.</p>
         <p>
           Everything is driven automatically by the scripts in the associated repository, and there is no hand-tuning of individual author lists or affiliations.
@@ -221,14 +221,13 @@
             attempt to capture a decent chunk of quantum work, not a
             complete picture of the field. As a rule of thumb, you should uncheck any venues not associated with your subfield 
             (e.g. if you're interested in theoretical quantum cryptography, PRL/A/X and others should be unchecked). Failing to do so will lead to an 
-            unecessary number of false positives. False negatives are also incredibly common, and as such, using the venue filter is far more reliable than the subfield one.
+            unnecessary number of false positives. False negatives are also incredibly common, and as such, using the venue filter is far more reliable than the subfield one.
           </li>
           <li>
             <strong>Numbers are noisy.</strong> Small changes in venue choices, keyword lists,
             or affiliation grouping can move institutions up or down quite a bit.
           </li>
         </ul>
-        </p>
       </div>
 
       <div class="disclaimer-block">
@@ -256,8 +255,8 @@
   </div>
 
   <!-- Data + behavior -->
-  <script src="js/data.js"></script>
-  <script src="js/script.js"></script>
+  <script src="data.js"></script>
+  <script src="script.js"></script>
 
   <!-- Theme + details behavior -->
   <script>
